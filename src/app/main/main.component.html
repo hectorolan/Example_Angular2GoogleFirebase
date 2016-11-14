@@ -1,6 +1,7 @@
 <div style= "float:left; width:200px;">
   <md-nav-list>
-    <a md-list-item routerLink="/games" routerLinkActive="active">Main</a>
+    <a md-list-item routerLink="/login" routerLinkActive="active">Log in</a>
+    <a md-list-item routerLink="/admin" routerLinkActive="active">Account</a>
     <a *ngFor="let console of keys(consoles);" md-list-item routerLink="/games/{{console}}" 
     routerLinkActive="active">{{consoles[console]}}</a>
   </md-nav-list>
