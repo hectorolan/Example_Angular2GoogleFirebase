@@ -31,7 +31,8 @@ import { MdIconModule } from '@angular/material/icon';
     MdListModule,
     MdSidenavModule,
     MdToolbarModule,
-    MdIconModule
+    MdIconModule,
+    AdsComponent
   ],
   declarations: [
     AdsComponent
