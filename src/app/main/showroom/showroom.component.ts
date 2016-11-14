@@ -21,10 +21,12 @@ export class ShowroomComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       let console: string = Console.Consoles[params['console']];
       let section: string = Section.Sections[params['section']];
-      if (section === '') {
-
-      } else if (console === '') {
-        //
+      if (console === undefined) {
+        //console not valid
+        this.router.navigate(['/games']);
+      } else if (section === undefined) {
+        //section not valid
+        this.router.navigate(['/games/' + params['console']]);
       }
       this.title = console + "/" + section;
     });

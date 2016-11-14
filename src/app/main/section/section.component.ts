@@ -23,8 +23,9 @@ export class SectionComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.console = params['console'];
       this.title = Console.Consoles[this.console];
-      if (this.title === '') {
-        //return to main page. console not found
+      if (this.title === undefined) {
+        //console not valid
+        this.router.navigate(['/games']);
       }
    });
   }
