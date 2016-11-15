@@ -5,6 +5,7 @@ import { MainComponent } from './main.component';
 import { ConsolesComponent } from './consoles/consoles.component';
 import { SectionComponent } from './section/section.component';
 import { ShowroomComponent } from './showroom/showroom.component';
+import { AdsComponent } from './ads/ads.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ShowroomComponent } from './showroom/showroom.component';
     MainComponent,
     ConsolesComponent,
     SectionComponent,
-    ShowroomComponent
+    ShowroomComponent,
+    AdsComponent
   ]
 })
 export class MainModule {

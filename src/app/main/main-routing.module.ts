@@ -4,7 +4,7 @@ import { MainComponent } from './main.component';
 import { ConsolesComponent } from './consoles/consoles.component';
 import { SectionComponent } from './section/section.component';
 import { ShowroomComponent } from './showroom/showroom.component';
-import { AdsComponent } from '../shared/ads/ads.component';
+import { AdsComponent } from './ads/ads.component';
 import { AuthService } from '../services/auth.service';
 import { AuthGuardService } from '../services/auth-guard.service';
 
