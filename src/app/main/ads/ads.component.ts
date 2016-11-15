@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Console } from '../../models/console';
 import { Section } from '../../models/section';
+import { Ad } from '../../models/ad';
 
 @Component({
   selector: 'app-ads',
@@ -11,6 +12,7 @@ import { Section } from '../../models/section';
 export class AdsComponent implements OnInit {
 
   title: string = '';
+  ad: Ad;
 
   constructor(
     private route: ActivatedRoute,
