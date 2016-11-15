@@ -12,6 +12,9 @@ import { Ad } from '../../models/ad';
 export class AdsComponent implements OnInit {
 
   title: string = '';
+  console: string;
+  section: string;
+  id: number;
   ad: Ad;
 
   constructor(
@@ -21,21 +24,37 @@ export class AdsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      let console: string = Console.Consoles[params['console']];
-      let section: string = Section.Sections[params['section']];
-      let id: number = +params['id'];
-      if (console === undefined) {
+      this.console = Console.Consoles[params['console']];
+      this.section = Section.Sections[params['section']];
+      this.id = +params['id'];
+      if (!this.ngOnInit_ifValidURL(params)) {
+        return;
+      }
+      this.title = this.ad + '';
+    });
+  }
+
+  ngOnInit_ifValidURL(params: Params) {
+      if (this.console === undefined) {
         //console not valid
         this.router.navigate(['/games']);
-      } else if (section === undefined) {
+        return false;
+      } else if (this.section === undefined) {
         //section not valid
         this.router.navigate(['/games/' + params['console']]);
-      } else if (id === NaN){
+        return false;
+      } else if (this.id === NaN){
         //id not valid
         this.router.navigate(['/games/' + params['console'] + '/' + params['section']]);
+        return false;
       }
-      this.title = id +'';
-    });
+      this.ad = Ad.Ads.find(ad => ad.id === this.id);
+      if (this.ad === undefined) {
+        //ad does not exists not valid
+        this.router.navigate(['/games/' + params['console'] + '/' + params['section']]);
+        return false;
+      }
+      return true;
   }
 
 }
