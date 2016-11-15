@@ -22,6 +22,7 @@ export class Ad {
     console: string;
     section: string;
     itemIdentification: string;
+    expDate: Date;
 
     constructor(id: number,
     name: string,
