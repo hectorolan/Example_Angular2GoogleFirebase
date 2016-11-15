@@ -4,6 +4,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { UserComponent } from './user/user.component';
 import { CreateAdComponent } from './createad/createad.component';
+import { MyAdsComponent } from './myads/myads.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { CreateAdComponent } from './createad/createad.component';
   declarations: [
     AdminComponent,
     UserComponent,
-    CreateAdComponent
+    CreateAdComponent,
+    MyAdsComponent
     ]
 })
 export class AdminModule { }
