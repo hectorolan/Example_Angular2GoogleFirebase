@@ -1,7 +1,7 @@
 <h2>
   {{title}}
 </h2>
-<md-nav-list>
-  <a *ngFor="let section of keys(sections);" md-list-item routerLink="/games/{{console}}/{{section}}" 
-  routerLinkActive="active">{{sections[section]}}</a>
-</md-nav-list>
+<div *ngFor="let section of keys(sections);" style="margin: 10px; display:inline;">
+<a routerLink="/games/{{console}}/{{section}}" 
+routerLinkActive="active">{{sections[section]}}</a>
+</div>
