@@ -2,6 +2,6 @@
   {{title}}
 </h2>
 <div *ngFor="let section of keys(sections);" style="margin: 10px; display:inline;">
-<a routerLink="/games/{{console}}/{{section}}" 
-routerLinkActive="active">{{sections[section]}}</a>
+  <a routerLink="/games/{{console}}/{{section}}" routerLinkActive="active">{{sections[section]}}</a>
 </div>
+<app-adlist [ads]="ads"></app-adlist>

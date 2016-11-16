@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Console } from '../../models/console';
 import { Section } from '../../models/section';
+import { Ad } from '../../models/ad';
 
 @Component({
   selector: 'app-section',
@@ -13,6 +14,7 @@ export class SectionComponent implements OnInit {
   title: string = '';
   console: string = '';
   sections = Section.Sections;
+  ads: Ad[];
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +29,7 @@ export class SectionComponent implements OnInit {
         //console not valid
         this.router.navigate(['/games']);
       }
+      this.ads = Ad.Ads;
    });
   }
 
