@@ -1,4 +1,11 @@
 <p>
   adlist works!
 </p>
-<div *ngIf="ads"> hello </div>
+<div *ngIf="ads">
+  <div>
+    <md-nav-list>
+      <a *ngFor="let ad of ads;" md-list-item routerLink="/games/{{ad.console}}/{{ad.section}}/{{ad.id}}" 
+      routerLinkActive="active">{{ ad.name }}</a>
+    </md-nav-list>
+  </div>
+</div>
