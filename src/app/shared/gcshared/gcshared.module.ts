@@ -8,6 +8,7 @@ import { MdListModule } from '@angular/material/list';
 import { MdSidenavModule } from '@angular/material/sidenav';
 import { MdToolbarModule } from '@angular/material/toolbar';
 import { MdIconModule } from '@angular/material/icon';
+import { AdlistComponent } from '../adlist/adlist.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,9 @@ import { MdIconModule } from '@angular/material/icon';
     MdToolbarModule,
     MdIconModule
   ],
+  declarations: [
+    AdlistComponent
+  ],
   exports: [
     FormsModule,
     CommonModule,
@@ -30,9 +34,8 @@ import { MdIconModule } from '@angular/material/icon';
     MdListModule,
     MdSidenavModule,
     MdToolbarModule,
-    MdIconModule
-  ],
-  declarations: [
+    MdIconModule,
+    AdlistComponent
   ]
 })
 export class GCSharedModule { }
