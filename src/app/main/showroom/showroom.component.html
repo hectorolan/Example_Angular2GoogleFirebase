@@ -1,8 +1,5 @@
 <h2>
   {{title}}
 </h2>
-<md-nav-list>
-  <a *ngFor="let ad of ads;" md-list-item routerLink="/games/{{ad.console}}/{{ad.section}}/{{ad.id}}" 
-  routerLinkActive="active">{{ ad.name }}</a>
-</md-nav-list>
+<app-adlist [ads]="ads"></app-adlist>
 <!-- to insert the component list -->
