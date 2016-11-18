@@ -8,8 +8,8 @@ import { MdListModule } from '@angular/material/list';
 import { MdSidenavModule } from '@angular/material/sidenav';
 import { MdToolbarModule } from '@angular/material/toolbar';
 import { MdIconModule } from '@angular/material/icon';
-import { AdlistComponent } from '../adlist/adlist.component';
-import { AdlistRoutingModule } from '../adlist/adlist-routing.module';
+import { AdlistComponent } from '../components/adlist/adlist.component';
+import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module';
 
 @NgModule({
   imports: [
