@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Ad } from '../../models/ad';
+import { Ad } from '../../../models/ad';
 
 @Component({
   selector: 'app-adlist',
