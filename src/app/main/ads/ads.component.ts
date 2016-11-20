@@ -48,7 +48,7 @@ export class AdsComponent implements OnInit {
         this.router.navigate(['/games/' + params['console'] + '/' + params['section']]);
         return false;
       }
-      this.ad = Ad.Ads.find(ad => ad.id === this.id);
+      this.ad = Ad.dummyAds.find(ad => ad.id === this.id);
       if (this.ad === undefined) {
         //ad does not exists not valid
         this.router.navigate(['/games/' + params['console'] + '/' + params['section']]);
