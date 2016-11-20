@@ -1,15 +1,12 @@
 <div *ngIf="ads">
-<md-card *ngFor="let ad of ads;">
-  <md-card-title-group>
-    <md-card-title>{{ ad.name }}</md-card-title>
-    <md-card-subtitle>{{ ad.owner }}</md-card-subtitle>
-  </md-card-title-group>
-  
+  <md-card *ngFor="let ad of ads;">
+    <md-card-title-group>
+      <md-card-title>{{ ad.name }}</md-card-title>
+      <md-card-subtitle>{{ ad.owner }}</md-card-subtitle>
+    </md-card-title-group>
     <md-nav-list>
       <a  md-list-item routerLink="/games/{{ad.console}}/{{ad.section}}/{{ad.id}}" 
       routerLinkActive="active">{{ ad.name }}</a>
     </md-nav-list>
-</md-card>
-  <div>
-  </div>
+  </md-card>
 </div>
