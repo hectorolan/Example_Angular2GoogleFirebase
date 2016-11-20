@@ -1,11 +1,15 @@
-<div style= "float:left; width:200px;">
-  <md-nav-list>
-    <a md-list-item routerLink="/login" routerLinkActive="active">Log in</a>
-    <a md-list-item routerLink="/admin" routerLinkActive="active">Account</a>
-    <a *ngFor="let console of keys(consoles);" md-list-item routerLink="/games/{{console}}" 
-    routerLinkActive="active">{{consoles[console]}}</a>
-  </md-nav-list>
-</div>
-<div style= "float:left;">
-  <router-outlet></router-outlet>
-</div>
+<table>
+  <tr>
+    <td>
+      <md-nav-list style="width:200px;">
+        <a md-list-item routerLink="/login" routerLinkActive="active">Log in</a>
+        <a md-list-item routerLink="/admin" routerLinkActive="active">Account</a>
+        <a *ngFor="let console of keys(consoles);" md-list-item routerLink="/games/{{console}}" 
+        routerLinkActive="active">{{consoles[console]}}</a>
+      </md-nav-list>
+    </td>
+    <td style="vertical-align:top; width:100%;">
+      <router-outlet></router-outlet>
+    </td>
+  </tr>
+</table>
