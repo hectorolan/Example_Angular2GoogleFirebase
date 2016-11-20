@@ -29,7 +29,7 @@ export class SectionComponent implements OnInit {
         //console not valid
         this.router.navigate(['/games']);
       }
-      this.ads = Ad.Ads;
+      this.ads = Ad.dummyAds;
    });
   }
 

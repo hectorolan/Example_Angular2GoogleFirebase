@@ -29,7 +29,7 @@ export class ShowroomComponent implements OnInit {
         return;
       }
       this.title = this.console + '/' + this.section;
-      this.ads = Ad.Ads;
+      this.ads = Ad.dummyAds;
     });
   }
 
