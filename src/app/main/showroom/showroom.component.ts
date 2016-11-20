@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Console } from '../../models/console';
 import { Section } from '../../models/section';
 import { Ad } from '../../models/ad';
+import { AdService } from '../../services/ad.service';
 
 @Component({
   selector: 'app-showroom',
@@ -18,26 +19,27 @@ export class ShowroomComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private adService: AdService
     ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.console = Console.Consoles[params['console']];
-      this.section = Section.Sections[params['section']];
+      this.console = params['console'];
+      this.section = params['section'];
       if (!this.ngOnInit_ifValidURL(params)) {
         return;
       }
-      this.title = this.console + '/' + this.section;
-      this.ads = Ad.dummyAds;
+      this.title = Console.Consoles[params['console']] + '/' + Section.Sections[params['section']];
+      this.ads = this.adService.getAds(this.console, this.section);
     });
   }
 
   ngOnInit_ifValidURL(params: Params) {
-      if (this.console === undefined) {
+      if (Console.Consoles[params['console']] === undefined) {
         this.router.navigate(['/games']);
         return false;
-      } else if (this.section === undefined) {
+      } else if (Section.Sections[params['section']] === undefined) {
         this.router.navigate(['/games/' + params['console']]);
         return false;
       }

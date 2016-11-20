@@ -8,8 +8,18 @@ export class AdService {
 
   constructor() { }
 
-  getAds(console: string, section: string = ""){
-
+  getAds(console: string, section = ''): Ad[] {
+    if (console === '') {
+      return [];
+    }
+    let tempAds: Ad[];
+    if (console !== '') {
+      tempAds = this.dummyAd.filter(ad => ad.console === console);
+    }
+    if (section !== '') {
+      tempAds = tempAds.filter(ad => ad.section === section);
+    }
+    return tempAds;
   }
 
 }
