@@ -8,6 +8,8 @@ import { MdListModule } from '@angular/material/list';
 import { MdSidenavModule } from '@angular/material/sidenav';
 import { MdToolbarModule } from '@angular/material/toolbar';
 import { MdIconModule } from '@angular/material/icon';
+import { MdInputModule } from '@angular/material/input';
+import { MdCheckboxModule } from '@angular/material/checkbox';
 import { AdlistComponent } from '../components/adlist/adlist.component';
 import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module';
 
@@ -22,6 +24,8 @@ import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module'
     MdSidenavModule,
     MdToolbarModule,
     MdIconModule,
+    MdInputModule,
+    MdCheckboxModule,
     AdlistRoutingModule
   ],
   declarations: [
@@ -37,6 +41,8 @@ import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module'
     MdSidenavModule,
     MdToolbarModule,
     MdIconModule,
+    MdInputModule,
+    MdCheckboxModule,
     AdlistComponent
   ]
 })
