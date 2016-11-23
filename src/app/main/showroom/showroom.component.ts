@@ -13,6 +13,7 @@ import { AdService } from '../../services/ad.service';
 export class ShowroomComponent implements OnInit {
 
   title: string = '';
+  counter: string = '';
   console: string;
   section: string;
   ads: Ad[];
@@ -32,6 +33,7 @@ export class ShowroomComponent implements OnInit {
       }
       this.title = Console.Consoles[params['console']] + '/' + Section.Sections[params['section']];
       this.ads = this.adService.getAds(this.console, this.section);
+      this.counter = this.ads.length + '';
     });
   }
 

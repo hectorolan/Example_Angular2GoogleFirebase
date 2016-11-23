@@ -13,6 +13,7 @@ import { AdService } from '../../services/ad.service';
 export class SectionComponent implements OnInit {
 
   title: string = '';
+  counter: string = '';
   console: string = '';
   sections = Section.Sections;
   ads: Ad[];
@@ -32,6 +33,7 @@ export class SectionComponent implements OnInit {
         this.router.navigate(['/games']);
       }
       this.ads = this.adService.getAds(this.console);
+      this.counter = this.ads.length + '';
    });
   }
 
