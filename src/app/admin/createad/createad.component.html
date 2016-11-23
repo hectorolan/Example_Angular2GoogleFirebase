@@ -1,26 +1,48 @@
-<p>
-  createad works!
-</p>
 <md-card> 
-  <md-card-title>Create new post</md-card-title>
+  <md-card-title>Create New Ad</md-card-title>
   <md-card-content>
-    <div>
-    <md-input placeholder="Name" maxlength="50"></md-input>
+    <div style="display:inline-block; vertical-align:top;">
+      <div>
+      <md-input placeholder="Name" maxlength="50" style="width:275px;"></md-input>
+      </div>
+      <div>
+      <md-input placeholder="Price" maxlength="50" style="width:275px;"></md-input>
+      </div>
+      <div>
+      <md-textarea placeholder="Description" maxlength="50" style="width:275px;"></md-textarea>
+      </div>
     </div>
-    <div>
-    <md-input placeholder="Price" maxlength="50"></md-input>
-    </div>
-    <div>
-    <md-input placeholder="Console" maxlength="15"></md-input>
-    </div>
-    <div>
-    <md-input placeholder="Section" maxlength="50"></md-input>
-    </div>
-    <div>
-    <md-input placeholder="Description" maxlength="50"></md-input>
+    <div style="display:inline-block; vertical-align:top; margin-left:24px;">
+      <div style="display:inline-block; vertical-align:top; margin-right:24px;">
+        <md-radio-group *ngIf="consoles">
+          <table>
+            <th>
+              Console
+            </th>
+            <tr *ngFor="let console of keys(consoles);">
+              <md-radio-button value="{{console}}">{{consoles[console]}}</md-radio-button>
+            </tr>
+          </table>
+        </md-radio-group>
+      </div>
+      <div style="display:inline-block; vertical-align:top;">
+        <md-radio-group *ngIf="sections">
+          <table>
+            <th>
+              Section
+            </th>
+            <tr *ngFor="let section of keys(sections);">
+              <md-radio-button value="{{section}}">{{sections[section]}}</md-radio-button>
+            </tr>
+          </table>
+        </md-radio-group>
+      </div>
     </div>
   </md-card-content>
-  <md-card-actions></md-card-actions>
+  <md-card-actions>
+    <button md-button>Submit</button>
+    <button md-button>Cancel</button>
+  </md-card-actions>
 </md-card>
 <!--
     id: number;
