@@ -10,6 +10,7 @@ import { MdToolbarModule } from '@angular/material/toolbar';
 import { MdIconModule } from '@angular/material/icon';
 import { MdInputModule } from '@angular/material/input';
 import { MdCheckboxModule } from '@angular/material/checkbox';
+import { MdRadioModule } from '@angular/material/radio';
 import { AdlistComponent } from '../components/adlist/adlist.component';
 import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module';
 
@@ -26,6 +27,7 @@ import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module'
     MdIconModule,
     MdInputModule,
     MdCheckboxModule,
+    MdRadioModule,
     AdlistRoutingModule
   ],
   declarations: [
@@ -43,6 +45,7 @@ import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module'
     MdIconModule,
     MdInputModule,
     MdCheckboxModule,
+    MdRadioModule,
     AdlistComponent
   ]
 })
