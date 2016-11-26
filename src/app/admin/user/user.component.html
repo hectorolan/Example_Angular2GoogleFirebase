@@ -1,36 +1,39 @@
 <md-card> 
-  <md-card-title>Account Information</md-card-title>
+  <form [formGroup]="accountForm"  *ngIf="active"  (ngSubmit)="onSubmit()">
+  <md-card-title>Account Information{{counter}}</md-card-title>
   <md-card-content>
     <div>
-    <md-input placeholder="Name" maxlength="50" style="width:275px;"></md-input>
+    <md-input placeholder="Name" maxlength="50" style="width:275px;" formControlName="name" required>
+        <md-hint *ngIf="formErrors.name" align="end">{{ formErrors.name }}</md-hint>
+    </md-input>
     </div>
     <div>
-    <md-input placeholder="Email" maxlength="50" style="width:275px;"></md-input>
-    <md-checkbox>Show on ads</md-checkbox>
+    <md-input placeholder="Email" maxlength="50" type="email" style="width:275px;" formControlName="email" required>
+        <md-hint *ngIf="formErrors.email" align="end">{{ formErrors.email }}</md-hint>
+    </md-input>
+    <md-checkbox formControlName="emailOnAd">Show on ads</md-checkbox>
     </div>
     <div>
-    <md-input placeholder="Telephone" maxlength="15" style="width:275px;"></md-input>
-    <md-checkbox>Show on ads</md-checkbox>
+    <md-input placeholder="Telephone" maxlength="15" type="tel" style="width:275px;" formControlName="telephone" required>
+        <md-hint *ngIf="formErrors.telephone" align="end">{{ formErrors.telephone }}</md-hint>
+    </md-input>
+    <md-checkbox formControlName="telephoneOnAd">Show on ads</md-checkbox>
     </div>
     <div>
-    <md-input placeholder="Location" maxlength="50" style="width:275px;"></md-input>
+    <md-input placeholder="City" maxlength="50" style="width:275px;" formControlName="city" required>
+        <md-hint *ngIf="formErrors.city" align="end">{{ formErrors.city }}</md-hint>
+    </md-input>
     </div>
     <div>
       <md-input disabled value="Prefered contact method:"></md-input>
-      <md-checkbox>Call</md-checkbox>
-      <md-checkbox>Text Message</md-checkbox>
-      <md-checkbox>Email</md-checkbox>
+      <md-checkbox formControlName="methodCall">Call</md-checkbox>
+      <md-checkbox formControlName="methodTextMessage">Text Message</md-checkbox>
+      <md-checkbox formControlName="methodEmail">Email</md-checkbox>
     </div>
   </md-card-content>
   <md-card-actions>
-    <button md-button>Save</button>
-    <button md-button>Cancel</button>
+    <button md-button type="submit" [disabled]="!accountForm.valid">Save</button>
+    <button md-button (click)="cancelChanges()">Cancel</button>
   </md-card-actions>
+  </form>
 </md-card>
-<!-- 
-  user name
-  email (and if show)
-  telephone (and if show)
-  favorite contact method
-  location
-  -->

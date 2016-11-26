@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdCoreModule } from '@angular/material/core';
 import { MdButtonModule } from '@angular/material/button';
 import { MdCardModule } from '@angular/material/card';
@@ -17,6 +17,7 @@ import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module'
 @NgModule({
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     MdCoreModule,
     MdButtonModule,
@@ -35,6 +36,7 @@ import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module'
   ],
   exports: [
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     MdCoreModule,
     MdButtonModule,
