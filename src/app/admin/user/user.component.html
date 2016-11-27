@@ -1,6 +1,6 @@
 <md-card> 
   <form [formGroup]="accountForm"  *ngIf="active"  (ngSubmit)="onSubmit()">
-  <md-card-title>Account Information{{counter}}</md-card-title>
+  <md-card-title>Account Information</md-card-title>
   <md-card-content>
     <div>
     <md-input placeholder="Name" maxlength="50" style="width:275px;" formControlName="name" required>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '../../models/user';
 
 @Component({
@@ -13,7 +13,6 @@ export class UserComponent implements OnInit {
   user: User = new User();
   savedUser = new User();
   active = true;
-  counter = '';
 
   formErrors = {
     'name': '',
@@ -25,7 +24,7 @@ export class UserComponent implements OnInit {
   validationMessages = {
     'name': {
       'required':   'Name is required.',
-      'minlength':  'Name must be at least 4 characters long.'
+      'minlength':  'Name must be at least 3 characters long.'
     },
     'email': {
       'required':     'Email is required.',
@@ -46,14 +45,13 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.savedUser.name = 'Hector';
   }
 
   buildForm(): void {
     this.accountForm = this.formBuilder.group({
       'name': [this.user.name, [
           Validators.required,
-          Validators.minLength(4)
+          Validators.minLength(3)
         ]
       ],
       'email': [this.user.email, [
@@ -84,7 +82,6 @@ export class UserComponent implements OnInit {
 
   onSubmit() {
     this.user = this.accountForm.value;
-    this.counter = this.user.name  + ' ' + this.user.email + ' ' + this.user.methodCall;
   }
 
   cancelChanges() {
