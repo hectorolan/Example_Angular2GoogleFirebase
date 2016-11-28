@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 // Imports
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,7 @@ import { AdService } from './services/ad.service';
     MaterialModule.forRoot(),
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     LoginRoutingModule,
     AdminModule,

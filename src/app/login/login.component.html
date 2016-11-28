@@ -1,11 +1,21 @@
 <md-card>
-  <md-card-title>Login</md-card-title>
-  <md-card-content>
-    <md-input placeholder="email" style="width:100%;"></md-input><br>
-    <md-input placeholder="password" style="width:100%;"></md-input><br>
-  </md-card-content>
-  <md-card-actions>
-    <button md-button>Login</button>
-    <button md-button>Sign Up</button>
-  </md-card-actions>
+  <form  [formGroup]="loginForm"  *ngIf="active"  (ngSubmit)="login()">
+    <md-card-title>Login</md-card-title>
+    <md-card-content>
+      <div>
+        <md-input placeholder="email" type="email" style="width:100%;" formControlName="email" required>
+          <md-hint *ngIf="formErrors.email" align="end">{{ formErrors.email }}</md-hint>
+        </md-input>
+      </div>
+      <div>
+        <md-input placeholder="password" type="password" style="width:100%;" formControlName="password" required>
+          <md-hint *ngIf="formErrors.password" align="end">{{ formErrors.password }}</md-hint>
+        </md-input>
+      </div>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button type="submit" [disabled]="!loginForm.valid">Login</button>
+      <button md-button (click)="cancelLogin()">Cancel</button>
+    </md-card-actions>
+  </form>
 </md-card>
