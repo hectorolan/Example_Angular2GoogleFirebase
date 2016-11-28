@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Console } from '../models/console';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -10,9 +11,13 @@ export class MainComponent implements OnInit {
 
   consoles = Console.Consoles;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   keys(dictionary): Array<string> {
