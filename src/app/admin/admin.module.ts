@@ -16,6 +16,6 @@ import { MyAdsComponent } from './myads/myads.component';
     UserComponent,
     CreateAdComponent,
     MyAdsComponent
-    ]
+  ]
 })
 export class AdminModule { }

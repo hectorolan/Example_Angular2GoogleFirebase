@@ -2,11 +2,11 @@
   <tr>
     <td style="vertical-align:top;">
       <md-nav-list style="width:200px;">
-        <a md-list-item routerLink="/games" routerLinkActive="active">Clasificados</a>
+        <a md-list-item routerLink="/admin" routerLinkActive="active">Account</a>
         <a md-list-item routerLink="myads" routerLinkActive="active">My Ads</a>
         <a md-list-item routerLink="createad" routerLinkActive="active">Create new Ad</a>
-        <a md-list-item routerLink="/admin" routerLinkActive="active">Account</a>
-        <a md-list-item routerLink="/games" routerLinkActive="active">Logout</a>
+        <a md-list-item routerLink="/games" routerLinkActive="active">Clasificados</a>
+        <a md-list-item  (click)="logout();">Logout</a>
       </md-nav-list>
     </td>
     <td style="vertical-align:top; width:100%;">

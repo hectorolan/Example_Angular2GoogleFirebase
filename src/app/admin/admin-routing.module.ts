@@ -11,19 +11,26 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [AuthGuardService],
     children: [
-    {
-      path: '',
-      component: UserComponent
-    },
-    {
-      path: 'createad',
-      component: CreateAdComponent
-    },
-    {
-      path: 'myads',
-      component: MyAdsComponent
-    }
+      {
+        path: '',
+        canActivateChild: [AuthGuardService],
+        children: [
+          {
+            path: '',
+            component: UserComponent
+          },
+          {
+            path: 'createad',
+            component: CreateAdComponent
+          },
+          {
+            path: 'myads',
+            component: MyAdsComponent
+          }
+        ]
+      }
     ]
   }
 ];
