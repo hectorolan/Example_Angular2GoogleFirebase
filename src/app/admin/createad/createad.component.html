@@ -1,6 +1,6 @@
 <md-card> 
   <form [formGroup]="createAdForm"  *ngIf="active"  (ngSubmit)="onSubmit()">
-  <md-card-title>Create New Ad {{result}}</md-card-title>
+  <md-card-title>Create New Ad</md-card-title>
   <md-card-content>
     <div style="display:inline-block; vertical-align:top;">
       <div>
@@ -9,7 +9,7 @@
       </md-input>
       </div>
       <div>
-      <md-input placeholder="Price" maxlength="50" type="number" style="width:275px;"align="end"  formControlName="price" required>
+      <md-input placeholder="Price" maxlength="10" type="number" style="width:275px;"align="end"  formControlName="price" required>
         <span md-prefix>$&nbsp;</span>
         <span md-suffix>.00</span>
         <md-hint *ngIf="formErrors.price" align="end">{{ formErrors.price }}</md-hint>

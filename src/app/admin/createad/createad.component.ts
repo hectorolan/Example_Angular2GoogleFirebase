@@ -11,7 +11,6 @@ import { User } from '../../models/user';
   styleUrls: ['./createad.component.css']
 })
 export class CreateAdComponent implements OnInit {
-
   sections = Section.Sections;
   consoles = Console.Consoles;
 
@@ -19,7 +18,6 @@ export class CreateAdComponent implements OnInit {
   ad: Ad = new Ad();
   user: User = new User();
   active = true;
-  result = '';
 
   formErrors = {
     'name': '',
@@ -76,7 +74,6 @@ export class CreateAdComponent implements OnInit {
 
   onSubmit() {
     this.ad = this.createAdForm.value;
-    this.result = this.ad.price + 'HELLO';
   }
 
   cancelChanges() {
@@ -85,7 +82,6 @@ export class CreateAdComponent implements OnInit {
   }
 
   onValueChanged(data?: any) {
-    this.result = '';
     if (!this.createAdForm) {
       return;
     }
@@ -102,7 +98,6 @@ export class CreateAdComponent implements OnInit {
           for (const key in control.errors) {
             if (messages[key] !== '') {
               this.formErrors[field] += messages[key] + ' ';
-              this.result += messages[key];
             }
           }
         }
