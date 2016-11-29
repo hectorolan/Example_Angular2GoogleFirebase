@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Console } from '../models/console';
 import { AuthService } from '../services/auth.service';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'app-main',
@@ -8,10 +9,9 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-
   consoles = Console.Consoles;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private firebase: AngularFire) { }
 
   ngOnInit() {
   }
