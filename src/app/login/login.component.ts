@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
+import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods, FirebaseAuthState  } from 'angularfire2';
 import { AuthService } from '../services/auth.service';
 
 
@@ -10,6 +11,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  fireaseme = '';
   message: string;
   loginForm: FormGroup;
   logindata = {
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(private authService: AuthService, private router: Router,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder, private firebase: AngularFire) { }
 
   ngOnInit() {
     this.setMessage();
@@ -63,7 +65,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.message = 'Trying to log in ...';
-    this.authService.login().subscribe(() => {
+    this.firebase.auth.login().then(resolve => this.fireaseme = resolve.google.email);
+    /*this.authService.login().subscribe(() => {
         this.setMessage();
         if (this.authService.isLoggedIn) {
           let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
@@ -74,7 +77,7 @@ export class LoginComponent implements OnInit {
           // this.router.navigate([redirect], navigationExtras);
           this.router.navigate([redirect]);
         }
-    });
+    });*/
   }
 
   // logout() {
@@ -83,7 +86,8 @@ export class LoginComponent implements OnInit {
   // }
 
   cancelLogin() {
-    this.router.navigate(['/games']);
+    this.firebase.auth.logout();
+    //this.router.navigate(['/games']);
   }
 
   onValueChanged(data?: any) {
