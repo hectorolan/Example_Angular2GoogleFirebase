@@ -4,11 +4,13 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods, FirebaseAuthState  } from 'angularfire2';
+import { User } from '../models/user';
 
 
 @Injectable()
 export class AuthService {
-  isLoggedIn: boolean = false;
+  user = new User();
+  isLoggedIn: boolean;
   redirectUrl: string;
 
   constructor(private firebase: AngularFire) { }
@@ -17,33 +19,27 @@ export class AuthService {
     return this.firebase.auth.login()
       .then((success) => {
         this.isLoggedIn = true;
-        return true;
+        this.subscribe();
       })
       .catch((fail) => {
         this.isLoggedIn = false;
-        return false;
       });
   }
 
   logout(): void {
     this.firebase.auth.logout();
+    this.firebase.auth.unsubscribe();
+    this.user = new User();
     this.isLoggedIn = false;
   }
 
-  getEmail(): string {
-    let auth = this.firebase.auth.getAuth();
-    if (auth) {
-      return auth.auth.email ? auth.auth.email : '';
-    }
-    return '';
+  subscribe() {
+    this.firebase.auth.subscribe((auth) => {
+      if (auth) {
+        this.user.name = auth.auth.displayName;
+        this.user.email = auth.auth.email;
+        this.user.avatarURL = auth.auth.photoURL;
+      }
+    });
   }
-
-  getdisplayName(): string {
-    let auth = this.firebase.auth.getAuth();
-    if (auth) {
-      return auth.auth.displayName ? auth.auth.displayName : '';
-    }
-    return '';
-  }
-
 }
