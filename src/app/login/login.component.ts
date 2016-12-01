@@ -51,9 +51,7 @@ export class LoginComponent implements OnInit {
         Validators.minLength(6)
       ]]
     });
-
     this.loginForm.valueChanges.subscribe(data => this.onValueChanged(data));
-
     this.onValueChanged();
   }
 
