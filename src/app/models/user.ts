@@ -2,6 +2,7 @@ export class User {
     id: number;
     name: string;
     email: string;
+    avatarURL: string;
     telephone: string;
     city: string;
     telephoneOnAd: boolean;
@@ -14,6 +15,7 @@ export class User {
     id = 0,
     name = '',
     email = '',
+    avatarURL = '',
     telephone = '',
     city = '',
     telephoneOnAd = false,
@@ -24,6 +26,7 @@ export class User {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.avatarURL = avatarURL;
         this.telephone = telephone;
         this.city = city;
         this.telephoneOnAd = telephoneOnAd;
