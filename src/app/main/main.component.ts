@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Console } from '../models/console';
 import { AuthService } from '../services/auth.service';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'app-main',
@@ -10,10 +9,12 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 export class MainComponent implements OnInit {
   consoles = Console.Consoles;
+  displayName = 'Account';
 
-  constructor(private authService: AuthService, private firebase: AngularFire) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.displayName = this.authService.getdisplayName();
   }
 
   logout() {

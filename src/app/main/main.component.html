@@ -2,7 +2,7 @@
   <tr>
     <td style="vertical-align:top;">
       <md-nav-list style="width:200px;">
-        <a *ngIf="authService.isLoggedIn" md-list-item routerLink="/admin" routerLinkActive="active">Account</a>
+        <a *ngIf="authService.isLoggedIn" md-list-item routerLink="/admin" routerLinkActive="active">{{ displayName }}</a>
         <a *ngIf="!authService.isLoggedIn" md-list-item routerLink="/login" routerLinkActive="active">Log in</a>
         <a *ngFor="let console of keys(consoles);" md-list-item routerLink="/games/{{console}}" 
         routerLinkActive="active">{{consoles[console]}}</a>
