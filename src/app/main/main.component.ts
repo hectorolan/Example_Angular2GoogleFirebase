@@ -14,7 +14,7 @@ export class MainComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.displayName = this.authService.getdisplayName();
+    this.displayName = this.authService.user.name == '' ? 'Account' : this.authService.user.name;
   }
 
   logout() {
@@ -24,5 +24,4 @@ export class MainComponent implements OnInit {
   keys(dictionary): Array<string> {
     return Object.keys(dictionary);
   }
-
 }
