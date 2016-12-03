@@ -16,6 +16,9 @@ export class AuthService {
   constructor(private firebase: AngularFire) { }
 
   login(): any {
+  }
+
+  loginGoogle(): any {
     return this.firebase.auth.login()
       .then((success) => {
         this.isLoggedIn = true;
