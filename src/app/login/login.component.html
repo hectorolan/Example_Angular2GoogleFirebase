@@ -1,6 +1,8 @@
 <md-card>
   <form  [formGroup]="loginForm"  *ngIf="active"  (ngSubmit)="login()">
-    <md-card-title>Login</md-card-title>
+    <md-card-title>
+      Login
+    </md-card-title>
     <md-card-content>
       <div>
         <md-input placeholder="email" type="email" style="width:100%;" formControlName="email" required>
@@ -16,6 +18,7 @@
     <md-card-actions>
       <button md-button type="submit" [disabled]="!loginForm.valid">Login</button>
       <button md-button (click)="cancelLogin()">Cancel</button>
+      <button md-raised-button (click)="loginGoogle()" style="padding-left:0;"><img src="../../assets/images/g-logo.svg">Sign in with Google</button>
     </md-card-actions>
   </form>
 </md-card>

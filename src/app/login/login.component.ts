@@ -12,11 +12,12 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent implements OnInit {
   message: string;
   loginForm: FormGroup;
+  active = true;
+
   logindata = {
     'email': '',
     'password': ''
   };
-  active = true;
 
   formErrors = {
     'email': '',
@@ -60,8 +61,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+  }
+
+  loginGoogle() {
     this.message = 'Trying to log in ...';
-    this.authService.login().then(() => {
+    this.authService.loginGoogle().then(() => {
         this.setMessage();
         if (this.authService.isLoggedIn) {
           let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
@@ -73,7 +77,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate([redirect]);
         }
     });
-    return false;
   }
 
   cancelLogin() {
