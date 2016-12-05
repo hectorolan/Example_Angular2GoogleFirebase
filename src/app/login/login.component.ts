@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   message: string;
   loginForm: FormGroup;
   active = true;
+  loading = true;
 
   logindata = {
     'email': '',
@@ -40,6 +41,18 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.setMessage();
     this.buildForm();
+    this.authService.checkIfLoggedIn().then(() => {
+      if (this.authService.isLoggedIn) {
+          let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
+          // let navigationExtras: NavigationExtras = {
+          //  preserveQueryParams: true,
+          //  preserveFragment: true
+          // }
+          // this.router.navigate([redirect], navigationExtras);
+          this.router.navigate([redirect]);
+      }
+      this.loading = false;   
+    });
   }
 
   buildForm(): void {
@@ -66,16 +79,7 @@ export class LoginComponent implements OnInit {
   loginGoogle() {
     this.message = 'Trying to log in ...';
     this.authService.loginGoogle().then(() => {
-        this.setMessage();
-        if (this.authService.isLoggedIn) {
-          let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
-          // let navigationExtras: NavigationExtras = {
-          //  preserveQueryParams: true,
-          //  preserveFragment: true
-          // }
-          // this.router.navigate([redirect], navigationExtras);
-          this.router.navigate([redirect]);
-        }
+
     });
   }
 

@@ -1,4 +1,5 @@
-<md-card>
+<md-spinner *ngIf="loading"></md-spinner>
+<md-card *ngIf="!loading">
   <form  [formGroup]="loginForm"  *ngIf="active"  (ngSubmit)="login()">
     <md-card-title>
       Login
