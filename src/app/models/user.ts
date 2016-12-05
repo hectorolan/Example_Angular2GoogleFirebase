@@ -10,6 +10,7 @@ export class User {
     methodTextMessage: boolean;
     methodCall: boolean;
     methodEmail: boolean;
+    accessToken: string;
 
     constructor(
     id = 0,
@@ -22,7 +23,8 @@ export class User {
     emailOnAd = false,
     methodTextMessage = false,
     methodCall = false,
-    methodEmail = false) {
+    methodEmail = false,
+    accessToken = '') {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -34,5 +36,6 @@ export class User {
         this.methodTextMessage = methodTextMessage;
         this.methodCall = methodCall;
         this.methodEmail = methodEmail;
+        this.accessToken = accessToken;
     }
 }
