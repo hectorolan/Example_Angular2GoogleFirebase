@@ -26,7 +26,7 @@ export const firebaseConfig = {
 const firebaseAuthConfig = {
   provider: AuthProviders.Google,
   method: AuthMethods.Popup
-}
+};
 
 @NgModule({
   declarations: [
