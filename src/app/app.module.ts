@@ -12,6 +12,7 @@ import { AdminModule } from './admin/admin.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 // Providers
+import { FirebaseService } from './services/firebase.service';
 import { AdService } from './services/ad.service';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AdService } from './services/ad.service';
     AppRoutingModule
   ],
   providers: [
+    FirebaseService,
     AdService
   ],
   bootstrap: [AppComponent]
