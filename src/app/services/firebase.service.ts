@@ -23,4 +23,9 @@ export class FirebaseService {
     this.database = firebase.database();
     this.storage = firebase.storage();
   }
+
+  GoogleAuthProvider(): any {
+    return new firebase.auth.GoogleAuthProvider();
+  }
+
 }
