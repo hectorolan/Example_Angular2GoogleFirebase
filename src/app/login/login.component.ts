@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
           // this.router.navigate([redirect], navigationExtras);
           this.router.navigate([redirect]);
       }
-      this.loading = false;   
+      this.loading = false;
     });
   }
 
@@ -78,9 +78,7 @@ export class LoginComponent implements OnInit {
 
   loginGoogle() {
     this.message = 'Trying to log in ...';
-    this.authService.loginGoogle().then(() => {
-
-    });
+    this.authService.loginGoogle();
   }
 
   cancelLogin() {
