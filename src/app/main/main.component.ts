@@ -9,12 +9,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class MainComponent implements OnInit {
   consoles = Console.Consoles;
-  displayName = 'Account';
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.displayName = this.authService.user.name == '' ? 'Account' : this.authService.user.name;
   }
 
   logout() {
