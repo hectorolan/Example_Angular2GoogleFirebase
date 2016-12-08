@@ -67,7 +67,7 @@ export class Ad {
     contactMethod: string;
     price: number;
     description: string;
-    location: string;
+    city: string;
     console: string;
     section: string;
     itemIdentification: string;
@@ -81,7 +81,7 @@ export class Ad {
     contactMethod = '',
     price = 0,
     description = '',
-    location = '',
+    city = '',
     console = '',
     section = '',
     itemIdentification = '') {
@@ -92,7 +92,7 @@ export class Ad {
         this.telephone = telephone;
         this.contactMethod = contactMethod;
         this.price = price;
-        this.location = location;
+        this.city = city;
         this.console = console;
         this.section = section;
         this.itemIdentification = itemIdentification;
