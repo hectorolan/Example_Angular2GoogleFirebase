@@ -32,8 +32,10 @@ export class ShowroomComponent implements OnInit {
         return;
       }
       this.title = Console.Consoles[params['console']] + '/' + Section.Sections[params['section']];
-      this.ads = this.adService.getAds(this.console, this.section);
-      this.counter = this.ads.length + '';
+      this.adService.getAds(this.console, this.section).then((ads) => {
+        this.ads = ads;  
+        this.counter = this.ads.length + '';
+      });
     });
   }
 

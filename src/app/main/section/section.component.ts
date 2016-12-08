@@ -32,8 +32,10 @@ export class SectionComponent implements OnInit {
         //console not valid
         this.router.navigate(['/games']);
       }
-      this.ads = this.adService.getAds(this.console);
-      this.counter = this.ads.length + '';
+      this.adService.getAds(this.console).then((ads) => {
+        this.ads = ads;
+        this.counter = this.ads.length + '';
+      });
    });
   }
 
