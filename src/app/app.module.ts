@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 // Providers
 import { FirebaseService } from './services/firebase.service';
 import { AdService } from './services/ad.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AdService } from './services/ad.service';
   ],
   providers: [
     FirebaseService,
-    AdService
+    AdService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
