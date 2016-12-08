@@ -22,7 +22,6 @@ export class MyAdsComponent implements OnInit {
 
   ngOnInit() {
     this.adService.getUserAds(this.authService.user).then((ads) => {
-      console.log(ads);
       this.ads = ads;
       this.counter = this.ads.length + '';
     });
