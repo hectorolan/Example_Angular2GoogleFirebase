@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Section } from '../../models/section';
 import { Console } from '../../models/console';
 import { Ad } from '../../models/ad';
 import { User } from '../../models/user';
+import { AdService } from '../../services/ad.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-createad',
@@ -43,7 +46,11 @@ export class CreateAdComponent implements OnInit {
     }
   };
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private router: Router, 
+    private formBuilder: FormBuilder, 
+    private authService: AuthService, 
+    private adService: AdService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -74,6 +81,9 @@ export class CreateAdComponent implements OnInit {
 
   onSubmit() {
     this.ad = this.createAdForm.value;
+    this.adService.saveAd(this.ad, this.authService.user).then(() => {
+      this.router.navigate(['admin/myads']);
+    });
   }
 
   cancelChanges() {
