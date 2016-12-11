@@ -15,13 +15,12 @@
   </tr>
 </table>-->
 <md-sidenav-layout>
-  <md-sidenav mode="side" opened="true" #navpanel id="navpanel" >
+  <md-sidenav mode="{{ navMode }}" opened="{{ initOpened }}" #navpanel id="navpanel" >
     <md-nav-list style="width:200px;">
       <a *ngIf="!authService.isLoggedIn" md-list-item routerLink="/login" routerLinkActive="active">Log in</a>
-      <a *ngFor="let console of keys(consoles);" md-list-item routerLink="/games/{{console}}" 
-      routerLinkActive="active">{{ consoles[console] }}</a>
-      <a *ngIf="authService.isLoggedIn" md-list-item routerLink="/admin" routerLinkActive="active">{{ this.authService.user.name == '' ? 'Account' : this.authService.user.name }}</a>
-      <a *ngIf="authService.isLoggedIn" md-list-item (click)="logout();">Log out</a>
+      <a *ngFor="let console of keys(consoles);" md-list-item routerLink="/games/{{console}}" routerLinkActive="active" (click)="navpanel.close();">{{ consoles[console] }}</a>
+      <a *ngIf="authService.isLoggedIn" md-list-item routerLink="/admin" routerLinkActive="active" (click)="navpanel.close();">{{ this.authService.user.name == '' ? 'Account' : this.authService.user.name }}</a>
+      <a *ngIf="authService.isLoggedIn" md-list-item (click)="logout();navpanel.close();">Log out</a>
     </md-nav-list>
   </md-sidenav>
   <router-outlet></router-outlet>

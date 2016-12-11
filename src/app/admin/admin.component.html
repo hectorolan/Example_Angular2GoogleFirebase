@@ -1,10 +1,10 @@
 <md-sidenav-layout>
-  <md-sidenav mode="side" opened="true" #start >
+  <md-sidenav mode="{{ navMode }}" opened="{{ initOpened }}" #navpanel >
     <md-nav-list style="width:200px;">
-      <a md-list-item routerLink="/games" routerLinkActive="active">Clasificados</a>
-      <a md-list-item routerLink="myads" routerLinkActive="active">My Ads</a>
-      <a md-list-item routerLink="createad" routerLinkActive="active">Create new Ad</a>
-      <a md-list-item routerLink="/admin" routerLinkActive="active">{{ displayName }}</a>
+      <a md-list-item routerLink="/games" routerLinkActive="active" (click)="navpanel.close();">Clasificados</a>
+      <a md-list-item routerLink="myads" routerLinkActive="active" (click)="navpanel.close();">My Ads</a>
+      <a md-list-item routerLink="createad" routerLinkActive="active" (click)="navpanel.close();">Create new Ad</a>
+      <a md-list-item routerLink="/admin" routerLinkActive="active" (click)="navpanel.close();">{{ displayName }}</a>
       <a md-list-item  (click)="logout();">Logout</a>
     </md-nav-list>
   </md-sidenav>
