@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { TogglenavService } from '../services/togglenav.service';
 
 
 @Component({
@@ -10,7 +11,6 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  message: string;
   loginForm: FormGroup;
   active = true;
   loading = true;
@@ -35,11 +35,14 @@ export class LoginComponent implements OnInit {
     }
   };
 
-  constructor(private authService: AuthService, private router: Router,
-    private formBuilder: FormBuilder) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private togglenavService: TogglenavService) { }
 
   ngOnInit() {
-    this.setMessage();
+    this.togglenavService.showNavToggleBtn = false;
     this.buildForm();
     this.authService.checkIfLoggedIn().then(() => {
       if (this.authService.isLoggedIn) {
@@ -69,15 +72,10 @@ export class LoginComponent implements OnInit {
     this.onValueChanged();
   }
 
-  setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
-  }
-
   login() {
   }
 
   loginGoogle() {
-    this.message = 'Trying to log in ...';
     this.authService.loginGoogle();
   }
 
@@ -108,5 +106,4 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-
 }
