@@ -1,4 +1,5 @@
 <md-toolbar color="">
+  <button *ngIf="tooglenavService.showNavToggleBtn" md-icon-button (click)="toggleNav();"><i class="material-icons">menu</i></button>
   <span>{{title}}</span>
 </md-toolbar>
 <router-outlet></router-outlet>
