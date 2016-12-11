@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { FirebaseService } from './services/firebase.service';
 import { AdService } from './services/ad.service';
 import { UserService } from './services/user.service';
+import { TogglenavService } from './services/togglenav.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UserService } from './services/user.service';
   providers: [
     FirebaseService,
     AdService,
-    UserService
+    UserService,
+    TogglenavService
   ],
   bootstrap: [AppComponent]
 })
