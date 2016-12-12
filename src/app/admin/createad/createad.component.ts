@@ -7,6 +7,7 @@ import { Ad } from '../../models/ad';
 import { User } from '../../models/user';
 import { AdService } from '../../services/ad.service';
 import { AuthService } from '../../services/auth.service';
+import { IgdbService } from '../../services/igdb.service';
 
 @Component({
   selector: 'app-createad',
@@ -47,10 +48,11 @@ export class CreateAdComponent implements OnInit {
   };
 
   constructor(
-    private router: Router, 
-    private formBuilder: FormBuilder, 
-    private authService: AuthService, 
-    private adService: AdService) { }
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private adService: AdService,
+    private igdbService: IgdbService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -77,6 +79,10 @@ export class CreateAdComponent implements OnInit {
     this.createAdForm.valueChanges.subscribe(data => this.onValueChanged(data));
 
     this.onValueChanged();
+//todo
+    this.igdbService.getGameNames().subscribe(
+                       games => console.log(games),
+                       error =>  console.log(<any>error));
   }
 
   onSubmit() {

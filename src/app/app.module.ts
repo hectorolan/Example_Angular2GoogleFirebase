@@ -16,6 +16,7 @@ import { FirebaseService } from './services/firebase.service';
 import { AdService } from './services/ad.service';
 import { UserService } from './services/user.service';
 import { TogglenavService } from './services/togglenav.service';
+import { IgdbService } from './services/igdb.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { TogglenavService } from './services/togglenav.service';
     FirebaseService,
     AdService,
     UserService,
-    TogglenavService
+    TogglenavService,
+    IgdbService
   ],
   bootstrap: [AppComponent]
 })
