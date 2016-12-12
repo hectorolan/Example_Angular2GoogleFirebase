@@ -5,6 +5,7 @@ import { AdminComponent } from './admin.component';
 import { UserComponent } from './user/user.component';
 import { CreateAdComponent } from './createad/createad.component';
 import { MyAdsComponent } from './myads/myads.component';
+import { IgdbResultsComponent } from './createad/igdb-results/igdb-results.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { MyAdsComponent } from './myads/myads.component';
     AdminComponent,
     UserComponent,
     CreateAdComponent,
-    MyAdsComponent
+    MyAdsComponent,
+    IgdbResultsComponent
   ]
 })
 export class AdminModule { }
