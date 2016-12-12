@@ -1,58 +1,64 @@
-<md-card> 
-  <form [formGroup]="createAdForm"  *ngIf="active"  (ngSubmit)="onSubmit()">
-  <md-card-title>Create New Ad</md-card-title>
-  <md-card-content>
-    <div style="display:inline-block; vertical-align:top;">
-      <div>
-      <md-input placeholder="Name" maxlength="50" style="width:275px;" formControlName="name" required>
-        <md-hint *ngIf="formErrors.name" align="end">{{ formErrors.name }}</md-hint>
-      </md-input>
-      </div>
-      <div>
-      <md-input placeholder="Price" maxlength="10" type="number" style="width:275px;"align="end"  formControlName="price" required>
-        <span md-prefix>$&nbsp;</span>
-        <span md-suffix>.00</span>
-        <md-hint *ngIf="formErrors.price" align="end">{{ formErrors.price }}</md-hint>
-      </md-input>
-      </div>
-      <div>
-      <md-textarea placeholder="Description" maxlength="50" style="width:275px;" formControlName="description"></md-textarea>
-      </div>
-    </div>
-    <div style="display:inline-block; vertical-align:top; margin-left:24px;">
-      <div style="display:inline-block; vertical-align:top; margin-right:24px;">
-        <md-radio-group *ngIf="consoles" formControlName="console" required>
-          <table>
-            <th>
-              Console *<br>
-              <span><small *ngIf="formErrors.console">{{ formErrors.console }}</small></span>
-            </th>
-            <tr>
-            </tr>
-            <tr *ngFor="let console of keys(consoles);">
-              <md-radio-button value="{{console}}">{{consoles[console]}}</md-radio-button>
-            </tr>
-          </table>
-        </md-radio-group>
-      </div>
-      <div style="display:inline-block; vertical-align:top;">
-        <md-radio-group *ngIf="sections" formControlName="section" required>
-          <table>
-            <th>
-              Section *<br>
-              <span><small *ngIf="formErrors.section">{{ formErrors.section }}</small></span>
-            </th>
-            <tr *ngFor="let section of keys(sections);">
-              <md-radio-button value="{{section}}">{{sections[section]}}</md-radio-button>
-            </tr>
-          </table>
-        </md-radio-group>
-      </div>
-    </div>
-  </md-card-content>
-  <md-card-actions>
-    <button md-button type="submit" [disabled]="!createAdForm.valid">Submit</button>
-    <button md-button (click)="cancelChanges()">Cancel</button>
-  </md-card-actions>
+<form [formGroup]="createAdForm"  *ngIf="active"  (ngSubmit)="onSubmit()">
+  <button md-button type="submit" [disabled]="!createAdForm.valid">Submit</button>
+  <button md-button (click)="cancelChanges()">Cancel</button>
+  <md-tab-group>
+    <md-tab label="Console">
+      <md-card>
+        <md-card-content>
+          <md-radio-group *ngIf="consoles" formControlName="console" required>
+            <table>
+              <th>
+                Console *<br>
+                <span><small *ngIf="formErrors.console">{{ formErrors.console }}</small></span>
+              </th>
+              <tr>
+              </tr>
+              <tr *ngFor="let console of keys(consoles);">
+                <md-radio-button value="{{console}}">{{consoles[console]}}</md-radio-button>
+              </tr>
+            </table>
+          </md-radio-group>
+        </md-card-content>
+      </md-card>
+    </md-tab>
+    <md-tab label="Section">
+      <md-card>
+        <md-card-content>
+          <md-radio-group *ngIf="sections" formControlName="section" required>
+            <table>
+              <th>
+                Section *<br>
+                <span><small *ngIf="formErrors.section">{{ formErrors.section }}</small></span>
+              </th>
+              <tr *ngFor="let section of keys(sections);">
+                <md-radio-button value="{{section}}">{{sections[section]}}</md-radio-button>
+              </tr>
+            </table>
+          </md-radio-group>
+        </md-card-content>
+      </md-card>
+    </md-tab>
+    <md-tab label="Name">
+      <md-card>
+        <md-card-content>
+          <md-input placeholder="Name" maxlength="50" style="width:275px;" formControlName="name" required>
+            <md-hint *ngIf="formErrors.name" align="end">{{ formErrors.name }}</md-hint>
+          </md-input>
+          <app-igdb-results [search]="createAdForm.value.name"></app-igdb-results>
+        </md-card-content>
+      </md-card>
+    </md-tab>
+    <md-tab label="Price/Description">
+    <md-card>
+      <md-card-content>
+        <md-input placeholder="Price" maxlength="10" type="number" style="width:275px;"align="end"  formControlName="price" required>
+          <span md-prefix>$&nbsp;</span>
+          <span md-suffix>.00</span>
+          <md-hint *ngIf="formErrors.price" align="end">{{ formErrors.price }}</md-hint>
+        </md-input>
+        <md-textarea placeholder="Description" maxlength="50" style="width:275px;" formControlName="description"></md-textarea>
+      </md-card-content>
+    </md-card>
+    </md-tab>
+  </md-tab-group>
   </form>
-</md-card>
