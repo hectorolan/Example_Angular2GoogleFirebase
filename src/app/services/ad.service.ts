@@ -32,7 +32,7 @@ export class AdService {
 
   getAdsByConsole(console: string): Promise<Ad[]> {
     return Promise.resolve(
-      this.firebaseService.database.ref('ads').orderByChild("console").equalTo(console).once('value').then((snapshot) => {
+      this.firebaseService.database.ref('ads').orderByChild('console').equalTo(console).once('value').then((snapshot) => {
         let ads: Ad[] = [];
         snapshot.forEach((childSnapshot) => {
           let ad: Ad = childSnapshot.val();
