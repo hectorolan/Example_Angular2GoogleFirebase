@@ -7,6 +7,7 @@ import { MdCardModule } from '@angular/material/card';
 import { MdListModule } from '@angular/material/list';
 import { MdSidenavModule } from '@angular/material/sidenav';
 import { MdToolbarModule } from '@angular/material/toolbar';
+import { MdTabsModule } from '@angular/material/tabs';
 import { MdIconModule } from '@angular/material/icon';
 import { MdInputModule } from '@angular/material/input';
 import { MdCheckboxModule } from '@angular/material/checkbox';
@@ -25,6 +26,7 @@ import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module'
     MdListModule,
     MdSidenavModule,
     MdToolbarModule,
+    MdTabsModule,
     MdIconModule,
     MdInputModule,
     MdCheckboxModule,
@@ -44,6 +46,7 @@ import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module'
     MdListModule,
     MdSidenavModule,
     MdToolbarModule,
+    MdTabsModule,
     MdIconModule,
     MdInputModule,
     MdCheckboxModule,
