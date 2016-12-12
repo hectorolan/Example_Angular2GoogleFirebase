@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     this.buildForm();
     this.authService.checkIfLoggedIn().then(() => {
       if (this.authService.isLoggedIn) {
-          let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
+          let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin/myads';
           // let navigationExtras: NavigationExtras = {
           //  preserveQueryParams: true,
           //  preserveFragment: true
