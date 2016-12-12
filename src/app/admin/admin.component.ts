@@ -53,4 +53,10 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.navMode = 'over';
     }
   }
+
+  onMenuSelected() {
+    if (window.innerWidth <= 500) {
+      this.rd.invokeElementMethod(this.navpanel, 'close');
+    }
+  }
 }
