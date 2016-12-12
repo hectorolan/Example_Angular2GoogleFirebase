@@ -29,7 +29,7 @@ export class MainComponent implements OnInit, OnDestroy {
     if (window.innerWidth <= 500) {
       this.togglenavService.showNavToggleBtn = true;
       this.initOpened = false;
-      this.navMode = 'over';
+      this.navMode = 'push';
     }
   }
 
@@ -52,7 +52,13 @@ export class MainComponent implements OnInit, OnDestroy {
       this.navMode = 'side';
     }else {
       this.rd.invokeElementMethod(this.navpanel, 'close');
-      this.navMode = 'over';
+      this.navMode = 'push';
+    }
+  }
+
+  onMenuSelected() {
+    if (window.innerWidth <= 500) {
+      this.rd.invokeElementMethod(this.navpanel, 'close');
     }
   }
 }
