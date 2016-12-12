@@ -59,10 +59,7 @@ export class AuthService {
               if (user) {
                 this.user = user;
               } else {
-                return Promise.resolve(this.userService.saveUser(this.user)).then(() => {
-                  //TODO maybe is unnesessary
-                  this.router.navigate(['/admin'])
-                });
+                return Promise.resolve(this.userService.saveUser(this.user));
               }
           });
         }
