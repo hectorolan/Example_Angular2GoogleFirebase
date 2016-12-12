@@ -2,15 +2,21 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 
-class GameName {
+export class Game {
   id: number;
   name: string;
+  cover: {
+    cloudinary_id: string,
+    url:string
+  }
 }
 
 @Injectable()
 export class IgdbService {
-  private igdbURLName = `https://igdbcom-internet-game-database-v1.p.mashape.com/gam`
-  + `es/?fields=name&limit=10&offset=0&order=release_dates.date%3Adesc&search=zelda`;
+  private igdbNameURL = `https://igdbcom-internet-game-database-v1.p.mashape.com/gam`
+  + `es/?fields=name,cover&limit=10&offset=0&order=popularity:%3Adesc&search=`;
+  private igdbImageURL = 'http://images.igdb.com/igdb/image/upload/t_cover_big/'
+
   private igdbHeaders = {
     'X-Mashape-Key' : 'RGERb8l4Kkmsh4fvMJQHIZ9cEdz2p1Dvb1mjsn3KKk2Fx1sOrR',
     'Accept': 'application/json'
@@ -18,13 +24,17 @@ export class IgdbService {
 
   constructor(private http: Http) { }
 
-  getGameNames(): Observable<GameName[]> {
+  getGameNames(search: string): Observable<Game[]> {
     let headers = new Headers(this.igdbHeaders);
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.igdbURLName, options).map((res: Response) => {
-      let games: GameName[] = res.json();
+    return this.http.get(this.igdbNameURL + search, options).map((res: Response) => {
+      let games: Game[] = res.json();
       return games ? games : { };
     }).catch(this.handleError);
+  }
+
+  getGameURL(key: string): string {
+    return this.igdbImageURL + key + '.png';
   }
 
   private handleError (error: Response | any) {
