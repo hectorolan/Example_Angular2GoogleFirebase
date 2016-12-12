@@ -64,20 +64,20 @@ export class AdService {
 
   saveAd(ad: Ad, user: User): Promise<any>{
     ad.owner = user.name;
-    ad.email = user.emailOnAd == true ? user.email : '';
+    ad.email = user.emailOnAd === true ? user.email : '';
     ad.city = user.city;
-    ad.telephone = user.telephoneOnAd == true ? user.telephone : '';
+    ad.telephone = user.telephoneOnAd === true ? user.telephone : '';
     ad.expDate = new Date();
     ad.expDate.setDate(ad.expDate.getDate() + 21);
     let contactMethod = '';
-    contactMethod += user.methodCall ? true : "Call;";
-    contactMethod += user.methodTextMessage ? true : "Text;";
-    contactMethod += user.methodEmail ? true : "Email";
+    contactMethod += user.methodCall ? true : 'Call;';
+    contactMethod += user.methodTextMessage ? true : 'Text;';
+    contactMethod += user.methodEmail ? true : 'Email';
     ad.contactMethod = contactMethod;
 
     // Get a key for a new Post.
-    var newPostKey = this.firebaseService.database.ref().child('ads').push().key;
-    var updates = {
+    let newPostKey = this.firebaseService.database.ref().child('ads').push().key;
+    let updates = {
       ['/ads/' + newPostKey]: ad,
       ['/user-ads/' + user.id + '/' + newPostKey]: ad
     };
@@ -85,8 +85,8 @@ export class AdService {
     return Promise.resolve(this.firebaseService.database.ref().update(updates));
   }
 
-  deleteAd(){
-    
+  deleteAd() {
+
   }
 
 }
