@@ -1,3 +1,11 @@
-<p>
-  igdb-results works!
-</p>
+<div *ngFor="let game of games;">
+  <md-card>
+    <md-card-title-group>
+      <div *ngIf="game.cover">
+        <img md-card-md-image src="http://{{game.cover.url}}">
+      </div>
+        <md-card-title>{{ game.name }}</md-card-title>
+        <!--<md-card-subtitle>Subtitle</md-card-subtitle>-->
+    </md-card-title-group>
+  </md-card>
+</div>
