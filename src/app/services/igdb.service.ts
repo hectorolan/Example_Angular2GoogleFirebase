@@ -7,15 +7,15 @@ export class Game {
   name: string;
   cover: {
     cloudinary_id: string,
-    url:string
-  }
+    url: string
+  };
 }
 
 @Injectable()
 export class IgdbService {
   private igdbNameURL = `https://igdbcom-internet-game-database-v1.p.mashape.com/gam`
-  + `es/?fields=name,cover&limit=10&offset=0&order=popularity:%3Adesc&search=`;
-  private igdbImageURL = 'http://images.igdb.com/igdb/image/upload/t_cover_big/'
+  + `es/?fields=name,cover&limit=10&offset=0&search=`;
+  private igdbImageURL = 'http://images.igdb.com/igdb/image/upload/t_cover_big/';
 
   private igdbHeaders = {
     'X-Mashape-Key' : 'RGERb8l4Kkmsh4fvMJQHIZ9cEdz2p1Dvb1mjsn3KKk2Fx1sOrR',
