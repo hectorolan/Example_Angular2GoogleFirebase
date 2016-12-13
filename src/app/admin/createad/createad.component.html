@@ -45,7 +45,7 @@
           <md-input placeholder="Name" maxlength="50" style="width:275px;" formControlName="name" required>
             <md-hint *ngIf="formErrors.name" align="end">{{ formErrors.name }}</md-hint>
           </md-input>
-          <app-igdb-results [search]="createAdForm.value.name"></app-igdb-results>
+          <app-igdb-results [search]="createAdForm.value.name" (onGameSelected)="onGameSelected($event)"></app-igdb-results>
         </md-card-content>
       </md-card>
     </md-tab>

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Section } from '../../models/section';
 import { Console } from '../../models/console';
 import { Ad } from '../../models/ad';
 import { User } from '../../models/user';
 import { AdService } from '../../services/ad.service';
 import { AuthService } from '../../services/auth.service';
+import { Game } from '../../services/igdb.service';
 
 @Component({
   selector: 'app-createad',
@@ -19,7 +20,7 @@ export class CreateAdComponent implements OnInit {
 
   createAdForm: FormGroup;
   ad: Ad = new Ad();
-  user: User = new User();
+  gameSelected: Game;
   active = true;
 
   formErrors = {
@@ -57,6 +58,8 @@ export class CreateAdComponent implements OnInit {
   }
 
   buildForm(): void {
+    this.ad = new Ad();
+    this.gameSelected = null;
     this.createAdForm = this.formBuilder.group({
       'name': [this.ad.name, [
           Validators.required,
@@ -87,7 +90,6 @@ export class CreateAdComponent implements OnInit {
   }
 
   cancelChanges() {
-    this.ad = new Ad();
     this.buildForm();
   }
 
@@ -113,6 +115,12 @@ export class CreateAdComponent implements OnInit {
         }
       }
     }
+  }
+
+  onGameSelected(game: Game) {
+    this.gameSelected = game;
+    this.createAdForm.controls['name'].patchValue(game.name, {onlySelf: true});
+    this.createAdForm.controls['name'].updateValueAndValidity(true);
   }
 
   keys(dictionary): Array<string> {

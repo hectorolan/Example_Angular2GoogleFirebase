@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, OnChanges, Input, SimpleChange } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
 import { Subscription }   from 'rxjs/Subscription';
 import { IgdbService, Game } from '../../../services/igdb.service';
 
@@ -9,6 +9,7 @@ import { IgdbService, Game } from '../../../services/igdb.service';
 })
 export class IgdbResultsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() search: string;
+  @Output() onGameSelected = new EventEmitter<Game>();
   igdbSubscription: Subscription;
   games: Game[];
 
@@ -41,6 +42,10 @@ export class IgdbResultsComponent implements OnInit, OnDestroy, OnChanges {
         );
       }
     }
+  }
+
+  gameSelected(game: Game) {
+    this.onGameSelected.emit(game);
   }
 
 }
