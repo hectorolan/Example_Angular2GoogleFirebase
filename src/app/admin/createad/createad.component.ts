@@ -56,7 +56,7 @@ export class CreateAdComponent implements OnInit {
     this.buildForm();
   }
 
-  buildForm(): void{
+  buildForm(): void {
     this.createAdForm = this.formBuilder.group({
       'name': [this.ad.name, [
           Validators.required,
