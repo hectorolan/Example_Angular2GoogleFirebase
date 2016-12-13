@@ -25,20 +25,21 @@ export class IgdbResultsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-
     if (this.igdbSubscription) {
       this.igdbSubscription.unsubscribe();
     }
     for (let propName in changes) {
-      let changedProp = changes[propName];
-      let to =   JSON.stringify(changedProp.currentValue);
-      this.igdbSubscription = this.igdbService.getGameNames(to).subscribe(
-        games => {
-          console.log(games);
-          this.games = games;
-        },
-        error =>  console.log(<any>error)
-      );
+      if (propName) {
+        let changedProp = changes[propName];
+        let to =   JSON.stringify(changedProp.currentValue);
+        this.igdbSubscription = this.igdbService.getGameNames(to).subscribe(
+          games => {
+            console.log(games);
+            this.games = games;
+          },
+          error =>  console.log(<any>error)
+        );
+      }
     }
   }
 
