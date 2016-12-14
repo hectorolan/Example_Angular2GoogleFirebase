@@ -17,20 +17,21 @@ import { Game } from '../../services/igdb.service';
 export class CreateAdComponent implements OnInit {
   sections = Section.Sections;
   consoles = Console.Consoles;
-
-  createAdForm: FormGroup;
+  prices;
   ad: Ad = new Ad();
   gameSelected: Game;
-  active = true;
 
+  formActive = true;
+  formCreateAd: FormGroup;
+  formMessageCompletion: string = '';
+  formTabSelectedIndex: string = '0';
   formErrors = {
     'name': '',
     'price': '',
     'console': '',
     'section': ''
   };
-
-  validationMessages = {
+  formValidationMessages = {
     'name': {
       'required':   'Name is required.',
       'minlength':  'Name must be at least 3 characters long.'
@@ -60,7 +61,10 @@ export class CreateAdComponent implements OnInit {
   buildForm(): void {
     this.ad = new Ad();
     this.gameSelected = null;
-    this.createAdForm = this.formBuilder.group({
+    this.formMessageCompletion = '';
+    this.formTabSelectedIndex = '0';
+    this.prices = null;
+    this.formCreateAd = this.formBuilder.group({
       'name': [this.ad.name, [
           Validators.required,
           Validators.minLength(3)
@@ -68,45 +72,50 @@ export class CreateAdComponent implements OnInit {
       'price': [this.ad.price, [
           Validators.required
       ]],
-      'console': [this.ad.console, [
+      'console': [ { 
+          value: this.ad.console
+        }, [
           Validators.required
       ]],
-      'section': [this.ad.section, [
+      'section': [ { 
+          value:this.ad.section
+        }, [
           Validators.required
       ]],
       'description': [this.ad.description]
     });
-
-    this.createAdForm.valueChanges.subscribe(data => this.onValueChanged(data));
-
+    this.formCreateAd.valueChanges.subscribe(data => this.onValueChanged(data),
+    () => {
+      
+    });
     this.onValueChanged();
   }
 
   onSubmit() {
-    this.ad = this.createAdForm.value;
-    this.adService.saveAd(this.ad, this.authService.user).then(() => {
-      this.router.navigate(['admin/myads']);
-    });
+    this.ad = this.formCreateAd.value;
+    console.log(this.ad);
+    // this.adService.saveAd(this.ad, this.authService.user).then(() => {
+      // this.router.navigate(['admin/myads']);
+    // });
   }
 
-  cancelChanges() {
+  resetChanges() {
     this.buildForm();
   }
 
   onValueChanged(data?: any) {
-    if (!this.createAdForm) {
+    if (!this.formCreateAd) {
       return;
     }
-    const form = this.createAdForm;
+    const form = this.formCreateAd;
 
-    for (const field in this.createAdForm.controls) {
-      if (this.createAdForm.contains(field)) {
+    for (const field in this.formCreateAd.controls) {
+      if (this.formCreateAd.contains(field)) {
         // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
-
         if (control && control.dirty && !control.valid) {
-          const messages = this.validationMessages[field];
+          const messages = this.formValidationMessages[field];
           for (const key in control.errors) {
             if (messages[key] !== '') {
               this.formErrors[field] += messages[key] + ' ';
@@ -117,10 +126,39 @@ export class CreateAdComponent implements OnInit {
     }
   }
 
+  completeTab(control: string, value: string) {
+    if (value === '') {
+      return;
+    }
+    switch (control) {
+      case 'console':
+        this.formCreateAd.controls[control].patchValue(value, {onlySelf: true});
+        this.formCreateAd.controls[control].updateValueAndValidity(true);
+        this.formMessageCompletion = this.consoles[value];
+        this.formTabSelectedIndex = '1';
+        break;
+      case 'section':
+        this.formCreateAd.controls[control].patchValue(value, {onlySelf: true});
+        this.formCreateAd.controls[control].updateValueAndValidity(true);
+        this.formMessageCompletion += '\\' + this.sections[value];
+        this.prices = Ad.prices[value];
+        this.formTabSelectedIndex = '2';
+        break;
+      case 'name':
+        this.formMessageCompletion += '\\' + value;
+        this.formTabSelectedIndex = '3';
+        break;
+      case 'pricedescription':
+        this.formMessageCompletion = '';
+        this.formTabSelectedIndex = '4';
+        break;
+    }
+  }
+
   onGameSelected(game: Game) {
     this.gameSelected = game;
-    this.createAdForm.controls['name'].patchValue(game.name, {onlySelf: true});
-    this.createAdForm.controls['name'].updateValueAndValidity(true);
+    this.formCreateAd.controls['name'].patchValue(game.name, {onlySelf: true});
+    this.formCreateAd.controls['name'].updateValueAndValidity(true);
   }
 
   keys(dictionary): Array<string> {
