@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     if (window.innerWidth <= 500) {
       this.togglenavService.showNavToggleBtn = true;
       this.initOpened = false;
-      this.navMode = 'over';
+      this.navMode = 'push';
     }
     this.displayName = this.authService.user.name === '' ? 'Account' : this.authService.user.name;
   }
@@ -50,7 +50,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.navMode = 'side';
     }else {
       this.rd.invokeElementMethod(this.navpanel, 'close');
-      this.navMode = 'over';
+      this.navMode = 'push';
     }
   }
 
