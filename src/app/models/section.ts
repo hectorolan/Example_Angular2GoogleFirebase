@@ -2,8 +2,8 @@ export class Section {
     static Sections: Sections = {
         'games': 'Games',
         'ctrls': 'Controllers',
-        'cblsnetw': 'Cables & Networking',
-        'btrschr': 'Bateries & Chargers',
+        'cblsnetw': 'Cables, Networking & Accessories',
+        'bndlconsoles': 'Bundles & Consoles',
         'other': 'Other',
     };
 }
