@@ -1,65 +1,92 @@
-<form [formGroup]="createAdForm"  *ngIf="active"  (ngSubmit)="onSubmit()">
-  <button md-button (click)="cancelChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
-  <button md-button type="submit" [disabled]="!createAdForm.valid">Submit</button>
-  <button md-button (click)="cancelChanges()">Cancel</button>
-  <md-tab-group>
+<h1>Create new Ad</h1>
+<form [formGroup]="formCreateAd"  *ngIf="formActive"  (ngSubmit)="onSubmit()">
+  <md-tab-group [selectedIndex]="formTabSelectedIndex">
     <md-tab label="Console">
-      <md-card>
-        <md-card-content>
-          <md-radio-group *ngIf="consoles" formControlName="console" required>
-            <table>
-              <th>
-                Console *<br>
-                <span><small *ngIf="formErrors.console">{{ formErrors.console }}</small></span>
-              </th>
-              <tr>
-              </tr>
-              <tr *ngFor="let console of keys(consoles);">
-                <md-radio-button value="{{console}}">{{consoles[console]}}</md-radio-button>
-              </tr>
-            </table>
-          </md-radio-group>
-        </md-card-content>
-      </md-card>
-    </md-tab>
-    <md-tab label="Section">
-      <md-card>
-        <md-card-content>
-          <md-radio-group *ngIf="sections" formControlName="section" required>
-            <table>
-              <th>
-                Section *<br>
-                <span><small *ngIf="formErrors.section">{{ formErrors.section }}</small></span>
-              </th>
-              <tr *ngFor="let section of keys(sections);">
-                <md-radio-button value="{{section}}">{{sections[section]}}</md-radio-button>
-              </tr>
-            </table>
-          </md-radio-group>
-        </md-card-content>
-      </md-card>
-    </md-tab>
-    <md-tab label="Name">
-      <md-card>
-        <md-card-content>
-          <md-input placeholder="Name" maxlength="50" style="width:275px;" formControlName="name" required>
-            <md-hint *ngIf="formErrors.name" align="end">{{ formErrors.name }}</md-hint>
-          </md-input>
-          <app-igdb-results [search]="createAdForm.value.name" (onGameSelected)="onGameSelected($event)"></app-igdb-results>
-        </md-card-content>
-      </md-card>
-    </md-tab>
-    <md-tab label="Price/Description">
     <md-card>
+      <md-card-subtitle>{{ formMessageCompletion }}</md-card-subtitle>
+      <md-card-title>Console</md-card-title>
       <md-card-content>
-        <md-input placeholder="Price" maxlength="10" type="number" style="width:275px;"align="end"  formControlName="price" required>
-          <span md-prefix>$&nbsp;</span>
-          <span md-suffix>.00</span>
-          <md-hint *ngIf="formErrors.price" align="end">{{ formErrors.price }}</md-hint>
-        </md-input>
-        <md-textarea placeholder="Description" maxlength="50" style="width:275px;" formControlName="description"></md-textarea>
+        <div>
+          <input type="hidden" formControlName="console"/>
+        </div>
+        <md-nav-list>
+          <a md-list-item *ngFor="let console of keys(consoles);" (click)="completeTab('console', console)">{{ consoles[console] }}</a>
+        </md-nav-list>
       </md-card-content>
     </md-card>
     </md-tab>
+    <md-tab label="Section">
+    <md-card>
+      <md-card-subtitle>{{ formMessageCompletion }}</md-card-subtitle>
+      <md-card-title>Section</md-card-title>
+      <md-card-content>
+        <div>
+          <input type="hidden"formControlName="section"/>
+        </div>
+        <md-nav-list>
+          <a md-list-item *ngFor="let section of keys(sections);" (click)="completeTab('section', section)">{{ sections[section] }}</a>
+        </md-nav-list>
+      </md-card-content>
+      <md-card-actions>
+        <button md-button (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
+      </md-card-actions>
+    </md-card>
+    </md-tab>
+    <md-tab label="Name">
+    <md-card>
+      <md-card-subtitle>{{ formMessageCompletion }}</md-card-subtitle>
+      <md-card-title>Name</md-card-title>
+      <md-card-content>
+        <div style="display:block">
+          <md-input placeholder="Name" maxlength="50" style="width:100%;" formControlName="name" required>
+            <md-hint *ngIf="formErrors.name" align="end">{{ formErrors.name }}</md-hint>
+          </md-input>
+        </div>
+        <app-igdb-results [search]="formCreateAd.value.name" (onGameSelected)="onGameSelected($event)"></app-igdb-results>
+      </md-card-content>
+      <md-card-actions>
+        <button md-button (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
+        <button md-button (click)="completeTab('name', formCreateAd.controls['name'].value)"><md-icon class="md-24">check</md-icon>Done</button>
+      </md-card-actions>
+      <md-card-actions>
+      </md-card-actions>
+    </md-card>
+    </md-tab>
+    <md-tab label="Price/Description">
+    <md-card>
+      <md-card-subtitle>{{ formMessageCompletion }}</md-card-subtitle>
+      <md-card-title>Price / Description</md-card-title>
+      <md-card-content>
+        <!--<md-input placeholder="Price" maxlength="10" type="number" style="max-width:275px;"align="end" formControlName="price" required>
+          <span md-prefix>$&nbsp;</span>
+          <span md-suffix>.00</span>
+          <md-hint *ngIf="formErrors.price" align="end">{{ formErrors.price }}</md-hint>
+        </md-input>-->
+        <div style="max-width:500px; display:block;">
+        <md-radio-group *ngIf="prices" formControlName="price">
+          <div *ngFor="let price of prices" style="margin:6px; display:inline-block">
+            <md-radio-button [value]="price">
+              ${{price}}
+            </md-radio-button>
+          </div>
+        </md-radio-group>
+        </div>
+        <md-textarea placeholder="Description" maxlength="50" style="width:275px;" formControlName="description"></md-textarea>
+      </md-card-content>
+      <md-card-actions>
+        <button md-button (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
+        <button md-button (click)="completeTab('pricedescription', formCreateAd.controls['price'].value)"><md-icon class="md-24">check</md-icon>Done</button>
+      </md-card-actions>
+    </md-card>
+    </md-tab>
+    <md-tab label="Submit">
+    <md-card>
+      <md-card-title>Information Preview</md-card-title>
+      <md-card-actions>
+        <button md-button (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
+        <button md-button type="submit" [disabled]="!formCreateAd.valid">Submit</button>
+      </md-card-actions>
+    </md-card>
+    </md-tab>
   </md-tab-group>
-  </form>
+</form>
