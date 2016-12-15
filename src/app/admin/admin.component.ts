@@ -11,7 +11,6 @@ import { TogglenavService } from '../services/togglenav.service';
 })
 export class AdminComponent implements OnInit, OnDestroy {
   togglenavSubscription: Subscription;
-  displayName = 'Account';
   @ViewChild('navpanel') navpanel: ElementRef;
   navMode: string = 'side';
   initOpened: boolean = true;
@@ -32,7 +31,6 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.initOpened = false;
       this.navMode = 'push';
     }
-    this.displayName = this.authService.user.name === '' ? 'Account' : this.authService.user.name;
   }
 
   ngOnDestroy() {
