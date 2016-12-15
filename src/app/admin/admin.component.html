@@ -4,7 +4,7 @@
       <a md-list-item routerLink="/games" routerLinkActive="active" (click)="onMenuSelected();">Clasificados</a>
       <a md-list-item routerLink="myads" routerLinkActive="active" (click)="onMenuSelected();">My Ads</a>
       <a md-list-item routerLink="createad" routerLinkActive="active" (click)="onMenuSelected();">Create new Ad</a>
-      <a md-list-item routerLink="/admin" routerLinkActive="active" (click)="onMenuSelected();">{{ displayName }}</a>
+      <a md-list-item routerLink="/admin" routerLinkActive="active" (click)="onMenuSelected();">{{ authService.user.name == '' ? 'Account' : authService.user.name }}</a>
       <a md-list-item  (click)="logout();">Logout</a>
     </md-nav-list>
   </md-sidenav>
