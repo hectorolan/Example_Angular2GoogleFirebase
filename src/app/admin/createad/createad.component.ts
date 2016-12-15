@@ -7,7 +7,7 @@ import { Ad } from '../../models/ad';
 import { User } from '../../models/user';
 import { AdService } from '../../services/ad.service';
 import { AuthService } from '../../services/auth.service';
-import { Game } from '../../services/igdb.service';
+import { IgdbService, Game } from '../../services/igdb.service';
 
 @Component({
   selector: 'app-createad',
@@ -52,7 +52,8 @@ export class CreateAdComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private adService: AdService) { }
+    private adService: AdService,
+    private igdbService: IgdbService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -72,35 +73,33 @@ export class CreateAdComponent implements OnInit {
       'price': [this.ad.price, [
           Validators.required
       ]],
-      'console': [ { 
+      'console': [ {
           value: this.ad.console
         }, [
           Validators.required
       ]],
-      'section': [ { 
-          value:this.ad.section
+      'section': [ {
+          value: this.ad.section
         }, [
           Validators.required
       ]],
       'description': [this.ad.description]
     });
     this.formCreateAd.valueChanges.subscribe(data => this.onValueChanged(data),
-    () => {
-      
-    });
+    () => {});
     this.onValueChanged();
   }
 
   onSubmit() {
-    this.ad = this.formCreateAd.value;
-    console.log(this.ad);
-    // this.adService.saveAd(this.ad, this.authService.user).then(() => {
-      // this.router.navigate(['admin/myads']);
-    // });
+    this.adService.saveAd(this.ad, this.authService.user).then(() => {
+      this.router.navigate(['admin/myads']);
+    });
   }
 
   resetChanges() {
     this.buildForm();
+    this.formActive = false;
+    this.formActive = true;
   }
 
   onValueChanged(data?: any) {
@@ -151,13 +150,40 @@ export class CreateAdComponent implements OnInit {
       case 'pricedescription':
         this.formMessageCompletion = '';
         this.formTabSelectedIndex = '4';
+        Promise.resolve(this.setObjectToSave());
         break;
     }
+  }
+
+  setObjectToSave() {
+    let user: User = this.authService.user;
+    this.ad = this.formCreateAd.value;
+    this.ad.owner = user.name;
+    this.ad.email = user.emailOnAd === true ? user.email : '';
+    this.ad.city = user.city;
+    this.ad.telephone = user.telephoneOnAd === true ? user.telephone : '';
+    this.ad.expDate = new Date();
+    this.ad.expDate.setDate(this.ad.expDate.getDate() + 21);
+    let contactMethod = '';
+    contactMethod += user.methodCall ? 'Call;' : '';
+    contactMethod += user.methodTextMessage ? 'Text;' : '';
+    contactMethod += user.methodEmail ? 'Email' : '';
+    this.ad.contactMethod = contactMethod;
+    if (this.gameSelected && this.gameSelected.cover) {
+      this.ad.imageKey = this.gameSelected.cover.cloudinary_id;
+    }
+    console.log('' + this.ad.description + '');
   }
 
   onGameSelected(game: Game) {
     this.gameSelected = game;
     this.formCreateAd.controls['name'].patchValue(game.name, {onlySelf: true});
+    this.formCreateAd.controls['name'].updateValueAndValidity(true);
+  }
+
+  onGameUnselected() {
+    this.gameSelected = null;
+    this.formCreateAd.controls['name'].patchValue('', {onlySelf: true});
     this.formCreateAd.controls['name'].updateValueAndValidity(true);
   }
 
