@@ -7,9 +7,9 @@ export class UserService {
 
   constructor(private firebaseService: FirebaseService) { }
 
-  getUser(Userid: string): Promise<User> {
+  getUser(userId: string): Promise<User> {
     return Promise.resolve(
-      this.firebaseService.database.ref('/users/' + Userid).once('value').then(
+      this.firebaseService.database.ref('/users/' + userId).once('value').then(
         function(snapshot) {
           let user: User = snapshot.val();
           return user;
