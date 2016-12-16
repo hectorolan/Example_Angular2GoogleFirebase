@@ -19,11 +19,10 @@ const firebaseConfig = {
 @Injectable()
 export class AuthService {
   user = new User();
-  isLoggedIn: boolean;
+  isLoggedIn: boolean = false;
   redirectUrl: string;
 
   constructor(private router: Router, private firebaseService: FirebaseService, private userService: UserService) {
-    this.isLoggedIn = false;
   }
 
   login(): any {
@@ -46,19 +45,33 @@ export class AuthService {
   }
 
   checkIfLoggedIn(): Promise<any> {
-    return Promise.resolve(
-      this.firebaseService.auth.getRedirectResult().then((result) => {
+    return Promise.resolve().then(() => {
+      if (this.isLoggedIn){
+        return true;
+      }
+      return Promise.resolve(this.refreshFireBaseVariables());
+    }).then(() => {
+      if (this.isLoggedIn){
+        return true;
+      }
+      return Promise.resolve(this.getFirebaseRedirectResult());
+    });
+  }
+
+  getFirebaseRedirectResult(): Promise<any> {
+    return Promise.resolve().then(() => {
+      return this.firebaseService.auth.getRedirectResult().then((result) => {
         if (result.user) {
-          this.user.accessToken = result.credential.accessToken;
-          this.isLoggedIn = true;
-          this.user.name = result.user.displayName;
-          this.user.email = result.user.email;
-          this.user.avatarURL = result.user.photoURL;
-          this.user.id = result.user.uid;
-          return Promise.resolve(this.userService.getUser(this.user)).then((user) => {
+          return Promise.resolve(this.userService.getUser(result.user.uid)).then((user) => {
+              this.isLoggedIn = true;
               if (user) {
                 this.user = user;
               } else {
+                this.user.accessToken = result.credential.accessToken;
+                this.user.name = result.user.displayName;
+                this.user.email = result.user.email;
+                this.user.avatarURL = result.user.photoURL;
+                this.user.id = result.user.uid;
                 return Promise.resolve(this.userService.saveUser(this.user));
               }
           });
@@ -66,6 +79,19 @@ export class AuthService {
       }).catch((error: any) => {
         console.log(error);
       })
-    );
+    });
+  }
+
+  refreshFireBaseVariables(): Promise<any> {
+    return Promise.resolve().then(() => {
+        if (this.firebaseService.auth.currentUser) {
+          return Promise.resolve(this.userService.getUser(this.firebaseService.auth.currentUser.uid)).then((user) => {
+            if (user) {
+              this.isLoggedIn = true;
+              this.user = user;
+            }
+          });
+        }
+    });
   }
 }
