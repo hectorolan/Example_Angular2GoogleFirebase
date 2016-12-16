@@ -1,5 +1,5 @@
 export class User {
-    id: number;
+    id: string;
     name: string;
     email: string;
     avatarURL: string;
@@ -13,7 +13,7 @@ export class User {
     accessToken: string;
 
     constructor(
-    id = 0,
+    id = '',
     name = '',
     email = '',
     avatarURL = '',
