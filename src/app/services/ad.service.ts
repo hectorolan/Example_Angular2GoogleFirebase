@@ -65,16 +65,20 @@ export class AdService {
   saveAd(ad: Ad, user: User): Promise<any>{
     // Get a key for a new Post.
     let newPostKey = this.firebaseService.database.ref().child('ads').push().key;
+    ad.id = newPostKey;
     let updates = {
       ['/ads/' + newPostKey]: ad,
       ['/user-ads/' + user.id + '/' + newPostKey]: ad
     };
-
     return Promise.resolve(this.firebaseService.database.ref().update(updates));
   }
 
-  deleteAd() {
-
+  deleteAd(adKey: string, user: User) {
+    let updates = {
+      ['/ads/' + adKey]: null,
+      ['/user-ads/' + user.id + '/' + adKey]: null
+    };
+    return Promise.resolve(this.firebaseService.database.ref().update(updates));
   }
 
 }
