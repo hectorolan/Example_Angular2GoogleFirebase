@@ -159,6 +159,7 @@ export class CreateAdComponent implements OnInit {
     let user: User = this.authService.user;
     this.ad = this.formCreateAd.value;
     this.ad.owner = user.name;
+    this.ad.ownerid = user.id;
     this.ad.email = user.emailOnAd === true ? user.email : '';
     this.ad.city = user.city;
     this.ad.telephone = user.telephoneOnAd === true ? user.telephone : '';
@@ -172,7 +173,6 @@ export class CreateAdComponent implements OnInit {
     if (this.gameSelected && this.gameSelected.cover) {
       this.ad.imageKey = this.gameSelected.cover.cloudinary_id;
     }
-    console.log('' + this.ad.description + '');
   }
 
   onGameSelected(game: Game) {
