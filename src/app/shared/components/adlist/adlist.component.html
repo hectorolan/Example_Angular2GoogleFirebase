@@ -5,6 +5,9 @@
       <md-card-title-group>
         <md-card-title>{{ ad.name }}</md-card-title>
         <md-card-subtitle>{{ ad.owner }}</md-card-subtitle>
+        <button md-mini-fab *ngIf="authService.user.id === ad.ownerid" (click)="deleteAd(ad);">
+            <md-icon class="md-24">delete</md-icon>
+        </button>
       </md-card-title-group>
       <md-card-content>
         <a routerLink="/games/{{ad.console}}/{{ad.section}}/{{ad.id}}" routerLinkActive="active">

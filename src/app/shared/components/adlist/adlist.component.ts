@@ -3,6 +3,8 @@ import { Ad } from '../../../models/ad';
 import { Section } from '../../../models/section';
 import { Console } from '../../../models/console';
 import { IgdbService } from '../../../services/igdb.service';
+import { AuthService } from '../../../services/auth.service';
+import { AdService } from '../../../services/ad.service';
 
 @Component({
   selector: 'app-adlist',
@@ -17,9 +19,17 @@ export class AdlistComponent implements OnInit {
   ads: Ad[];
 
   constructor(
-    private igdbService: IgdbService) { }
+    private igdbService: IgdbService,
+    private authService: AuthService,
+    private adService: AdService) { }
 
   ngOnInit() {
+  }
+
+  deleteAd(ad: Ad) {
+    this.adService.deleteAd(ad.id, this.authService.user).then(() => {
+      location.reload();
+    });
   }
 
 }

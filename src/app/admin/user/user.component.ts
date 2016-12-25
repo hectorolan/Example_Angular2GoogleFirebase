@@ -94,7 +94,7 @@ export class UserComponent implements OnInit {
     this.user.accessToken = this.authService.user.accessToken;
     this.user.avatarURL = this.authService.user.avatarURL;
     this.userService.saveUser(this.user).then(() => {
-      this.authService.checkIfLoggedIn().then(() => {
+      this.authService.refreshFireBaseVariables().then(() => {
         let snackRef = this.snackBar.open('Saved!');
         setTimeout(() => { snackRef.dismiss(); }, 2000);
         this.buildForm();
