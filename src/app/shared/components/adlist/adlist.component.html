@@ -6,10 +6,28 @@
         <md-card-title>{{ ad.name }}</md-card-title>
         <md-card-subtitle>{{ ad.owner }}</md-card-subtitle>
       </md-card-title-group>
-      <md-nav-list>
-        <a  md-list-item routerLink="/games/{{ad.console}}/{{ad.section}}/{{ad.id}}" 
-        routerLinkActive="active">{{ ad.name }}</a>
-      </md-nav-list>
+      <md-card-content>
+        <a routerLink="/games/{{ad.console}}/{{ad.section}}/{{ad.id}}" routerLinkActive="active">
+        <table>
+          <tr>
+            <td>
+              <img style="width:175px;" *ngIf="ad.imageKey" src="{{igdbService.getGameURL(ad.imageKey)}}" alt="{{ad.name}}">
+            </td>
+            <td style="vertical-align:top;">
+              <label for="" *ngIf="ad.console !== ''">Console: {{consoles[ad.console]}}<br></label>
+              <label for="" *ngIf="ad.section !== ''">Section: {{sections[ad.section]}}<br></label>
+              <label for="" *ngIf="ad.price !== ''">Price: ${{ad.price}}<br></label>
+              <label for="" *ngIf="ad.description">Description: {{ad.description}}<br></label>
+              <label for="" *ngIf="ad.owner !== ''">Contact: {{ad.owner}}<br></label>
+              <label for="" *ngIf="ad.email !== ''">E.: {{ad.email}}<br></label>
+              <label for="" *ngIf="ad.telephone !== ''">Tel.: {{ad.telephone}}<br></label>
+              <label for="" *ngIf="ad.contactMethod !== ''">Prefered contact method: {{ad.contactMethod}}<br></label>
+              <label for="" *ngIf="ad.city !== ''">City: {{ad.city}}<br></label>
+            </td>
+          </tr>
+        </table>
+        </a>
+      </md-card-content>
     </md-card>
   <br>
   </div>
