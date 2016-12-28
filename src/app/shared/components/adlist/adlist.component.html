@@ -18,12 +18,13 @@
             </md-card-title-group>
             <md-card-content>
               <!--<label for="" *ngIf="ad.console !== ''">Console: {{consoles[ad.console]}}<br></label>-->
-              <label for="" *ngIf="ad.section !== ''">{{sections[ad.section]}}<br></label>
-              <label for="" *ngIf="ad.description">Description: {{ad.description}}<br></label>
+              <label for="" *ngIf="ad.section !== '' && ad.console !== ''">{{sections[ad.section]}}, {{consoles[ad.console]}}<br></label>
               <label for="" *ngIf="ad.owner !== ''">{{ad.owner}}<span for="" *ngIf="ad.city !== ''">, {{ad.city}}<br></span></label>
               <label for="" *ngIf="ad.email !== ''">E.: {{ad.email}}<br></label>
               <label for="" *ngIf="ad.telephone !== ''">Tel.: {{ad.telephone}}<br></label>
               <label for="" *ngIf="ad.contactMethod !== ''">Prefered contact method: {{ad.contactMethod}}<br></label>
+              <br>  
+              <label for="" *ngIf="ad.description">Description: {{ad.description}}<br></label>
             </md-card-content>
           </td>
         </tr>
