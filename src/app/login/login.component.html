@@ -1,5 +1,5 @@
-<md-spinner *ngIf="loading"></md-spinner>
-<md-card *ngIf="!loading">
+<md-spinner *ngIf="loading" style="padding-top: 64px"></md-spinner>
+<md-card *ngIf="!loading" style="max-width:500px; margin:auto; margin-top:76px;">
   <form  [formGroup]="loginForm"  *ngIf="active"  (ngSubmit)="login()">
     <md-card-title>
       Login
