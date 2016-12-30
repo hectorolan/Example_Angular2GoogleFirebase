@@ -15,6 +15,8 @@ import { MdRadioModule } from '@angular/material/radio';
 import { MdSnackBarModule } from '@angular/material/snack-bar';
 import { AdlistComponent } from '../components/adlist/adlist.component';
 import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module';
+import { AccountFormComponent } from '../components/account-form/account-form.component';
+import { AccountFormRoutingModule } from '../components/account-form/account-form-routing.module';
 
 @NgModule({
   imports: [
@@ -33,10 +35,12 @@ import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module'
     MdCheckboxModule,
     MdRadioModule,
     MdSnackBarModule,
-    AdlistRoutingModule
+    AdlistRoutingModule,
+    AccountFormRoutingModule
   ],
   declarations: [
-    AdlistComponent
+    AdlistComponent,
+    AccountFormComponent
   ],
   exports: [
     FormsModule,
@@ -54,7 +58,8 @@ import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module'
     MdCheckboxModule,
     MdRadioModule,
     MdSnackBarModule,
-    AdlistComponent
+    AdlistComponent,
+    AccountFormComponent
   ]
 })
 export class GCSharedModule { }
