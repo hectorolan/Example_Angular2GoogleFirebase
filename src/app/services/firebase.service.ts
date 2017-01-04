@@ -13,12 +13,14 @@ const firebaseConfig = {
 @Injectable()
 export class FirebaseService {
   user: User = new User();
+  firebase: any;
   auth: any;
   database: any;
   storage: any;
 
   constructor() {
     firebase.initializeApp(firebaseConfig);
+    this.firebase = firebase;
     this.auth = firebase.auth();
     this.database = firebase.database();
     this.storage = firebase.storage();
