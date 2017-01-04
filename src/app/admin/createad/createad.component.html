@@ -28,7 +28,7 @@
         </md-nav-list>
       </md-card-content>
       <md-card-actions>
-        <button md-button (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
+        <button md-button type="button" (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
       </md-card-actions>
     </md-card>
     </md-tab>
@@ -46,13 +46,13 @@
         <div>
         <input type="file" id="myFile" *ngIf="formCreateAd.controls['section'].value != 'games' && !gameSelected" (change)="onFileChanged($event)"/>
         </div>
-        <br><br>
+        <br>
         <img style="width:288px;" *ngIf="adImageSrc!=''" [src]="adImageSrc" >
       </md-card-content>
       <md-card-actions>
-        <button md-button (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
-        <button md-button (click)="completeTab('name', formCreateAd.controls['name'].value)"><md-icon class="md-24">check</md-icon>Done</button>
-        <button md-button *ngIf="gameSelected" (click)="onGameUnselected()"><md-icon class="md-24">clear</md-icon>Clear Name</button>
+        <button md-button type="button" (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
+        <button md-button type="button" (click)="completeTab('name', formCreateAd.controls['name'].value)"><md-icon class="md-24">check</md-icon>Done</button>
+        <button md-button type="button" *ngIf="gameSelected" (click)="onGameUnselected()"><md-icon class="md-24">clear</md-icon>Clear Name</button>
       </md-card-actions>
       <md-card-actions>
       </md-card-actions>
@@ -80,8 +80,8 @@
         <md-textarea placeholder="Description" maxlength="50" style="width:275px;" formControlName="description"></md-textarea>
       </md-card-content>
       <md-card-actions>
-        <button md-button (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
-        <button md-button (click)="completeTab('pricedescription', formCreateAd.controls['price'].value)"><md-icon class="md-24">check</md-icon>Done</button>
+        <button md-button type="button" (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
+        <button md-button type="button" (click)="completeTab('pricedescription', formCreateAd.controls['price'].value)"><md-icon class="md-24">check</md-icon>Done</button>
       </md-card-actions>
     </md-card>
     </md-tab>
@@ -92,27 +92,20 @@
         <md-card-title>{{ad.name}}</md-card-title>
       </md-card-title-group>
       <md-card-content>
-        <table>
-          <tr>
-            <td>
-              <img style="width:288px;" *ngIf="adImageSrc!=''" [src]="adImageSrc" alt="{{ad.name}}">
-            </td>
-            <td>
-              <label for="" *ngIf="ad.console !== ''">Console: {{consoles[ad.console]}}<br></label>
-              <label for="" *ngIf="ad.section !== ''">Section: {{sections[ad.section]}}<br></label>
-              <label for="" *ngIf="ad.price !== ''">Price: ${{ad.price}}<br></label>
-              <label for="" *ngIf="ad.description">Description: {{ad.description}}<br></label>
-              <label for="" *ngIf="ad.owner !== ''">Contact: {{ad.owner}}<br></label>
-              <label for="" *ngIf="ad.email !== ''">E.: {{ad.email}}<br></label>
-              <label for="" *ngIf="ad.telephone !== ''">Tel.: {{ad.telephone}}<br></label>
-              <label for="" *ngIf="ad.contactMethod !== ''">Prefered contact method: {{ad.contactMethod}}<br></label>
-              <label for="" *ngIf="ad.city !== ''">City: {{ad.city}}<br></label>
-            </td>
-          </tr>
-        </table>
+        <img style="width:288px;" *ngIf="adImageSrc!=''" [src]="adImageSrc" alt="{{ad.name}}">
+        <br>
+        <label for="" *ngIf="ad.console !== ''">Console: {{consoles[ad.console]}}<br></label>
+        <label for="" *ngIf="ad.section !== ''">Section: {{sections[ad.section]}}<br></label>
+        <label for="" *ngIf="ad.price !== ''">Price: ${{ad.price}}<br></label>
+        <label for="" *ngIf="ad.description">Description: {{ad.description}}<br></label>
+        <label for="" *ngIf="ad.owner !== ''">Contact: {{ad.owner}}<br></label>
+        <label for="" *ngIf="ad.email !== ''">E.: {{ad.email}}<br></label>
+        <label for="" *ngIf="ad.telephone !== ''">Tel.: {{ad.telephone}}<br></label>
+        <label for="" *ngIf="ad.contactMethod !== ''">Prefered contact method: {{ad.contactMethod}}<br></label>
+        <label for="" *ngIf="ad.city !== ''">City: {{ad.city}}<br></label>
       </md-card-content>
       <md-card-actions>
-        <button md-button (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
+        <button md-button type="button" (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
         <button md-button type="submit" [disabled]="!formCreateAd.valid">Submit</button>
       </md-card-actions>
     </md-card>

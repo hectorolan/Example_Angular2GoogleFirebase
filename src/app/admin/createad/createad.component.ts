@@ -183,7 +183,9 @@ export class CreateAdComponent implements OnInit {
     this.gameSelected = game;
     this.formCreateAd.controls['name'].patchValue(game.name, {onlySelf: true});
     this.formCreateAd.controls['name'].updateValueAndValidity(true);
-    this.adImageSrc = this.igdbService.getGameURL(game.cover.cloudinary_id);
+    if (this.gameSelected && this.gameSelected.cover) {
+      this.adImageSrc = this.igdbService.getGameURL(this.gameSelected.cover.cloudinary_id);
+    }
   }
 
   onGameUnselected() {
@@ -192,12 +194,12 @@ export class CreateAdComponent implements OnInit {
     this.formCreateAd.controls['name'].updateValueAndValidity(true);
   }
   // or
-  onFileChanged(event: any){ 
+  onFileChanged(event: any) { 
     this.adImageSrc = '';
     this.adImageFile = null;
     if (event.srcElement.files && event.srcElement.files[0]) {
       this.adImageFile = event.srcElement.files[0];
-        var reader = new FileReader();
+        let reader = new FileReader();
         reader.onload = (e: any) => {
           console.log(e);
           this.adImageSrc = e.target.result;
