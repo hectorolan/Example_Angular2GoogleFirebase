@@ -35,10 +35,9 @@ export class IgdbResultsComponent implements OnInit, OnDestroy, OnChanges {
         let to =   JSON.stringify(changedProp.currentValue);
         this.igdbSubscription = this.igdbService.getGameNames(to).subscribe(
           games => {
-            console.log(games);
             this.games = games;
           },
-          error =>  console.log(<any>error)
+          error => console.log(<any>error)
         );
       }
     }
