@@ -14,17 +14,14 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   active = true;
   loading = true;
-
   logindata = {
     'email': '',
     'password': ''
   };
-
   formErrors = {
     'email': '',
     'password': ''
   };
-
   validationMessages = {
     'email': {
       'required': 'Email is required.'
