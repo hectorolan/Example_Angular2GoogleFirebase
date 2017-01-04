@@ -9,7 +9,7 @@
       <table>
         <tr>
           <td>
-            <img style="width:175px;" *ngIf="ad.imageKey" src="{{igdbService.getGameURL(ad.imageKey)}}" alt="{{ad.name}}">
+            <img style="width:175px;" *ngIf="ad.imageKey" src="{{getImageSrc(ad.imageKey)}}" alt="{{ad.name}}">
           </td>
           <td style="vertical-align:top; padding-left:12px;">
             <md-card-title-group>

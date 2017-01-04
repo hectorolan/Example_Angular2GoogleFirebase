@@ -32,4 +32,11 @@ export class AdlistComponent implements OnInit {
     });
   }
 
+  getImageSrc(imageKey: string): string {
+    if (imageKey.indexOf('image') >= 0) {
+      return imageKey;
+    }
+    return this.igdbService.getGameURL(imageKey);
+  }
+
 }
