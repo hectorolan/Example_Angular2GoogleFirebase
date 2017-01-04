@@ -7,6 +7,13 @@ export class UserService {
 
   constructor(private firebaseService: FirebaseService) { }
 
+  getUserUid(): string  {
+    if (this.firebaseService.auth.currentUser) {
+      return this.firebaseService.auth.currentUser.uid
+    }
+    return '';
+  }
+
   getUser(userId: string): Promise<User> {
     return Promise.resolve(
       this.firebaseService.database.ref('/users/' + userId).once('value').then(
