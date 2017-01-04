@@ -7,7 +7,7 @@ import { TogglenavService } from './services/togglenav.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'GAMES Cla.';
+  title = 'GAMES Clasificados';
   constructor(private tooglenavService: TogglenavService) {
       this.tooglenavService.toggle();
   }

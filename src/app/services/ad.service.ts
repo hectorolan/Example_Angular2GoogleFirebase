@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { Ad } from '../models/ad';
 import { User } from '../models/user';
 import { FirebaseService } from './firebase.service';
+import { Observable }    from 'rxjs/Observable';
 
 @Injectable()
 export class AdService {
+  lastImageUploadedURL = '';
 
   dummyAd: Ad[] = Ad.dummyAds;
 
@@ -62,15 +64,29 @@ export class AdService {
     );
   }
 
-  saveAd(ad: Ad, user: User): Promise<any>{
-    // Get a key for a new Post.
-    let newPostKey = this.firebaseService.database.ref().child('ads').push().key;
-    ad.id = newPostKey;
-    let updates = {
-      ['/ads/' + newPostKey]: ad,
-      ['/user-ads/' + user.id + '/' + newPostKey]: ad
-    };
-    return Promise.resolve(this.firebaseService.database.ref().update(updates));
+  saveAd(ad: Ad, user: User, adImageFile: File): Promise<any> {
+    if (adImageFile != null){
+      return Promise.resolve(
+        this.uploadFile(adImageFile)
+        .forEach((process: number) => { console.log(process) })
+        .then(() => {
+          // Get a key for a new Post.
+          let newPostKey = this.firebaseService.database.ref().child('ads').push().key;
+          ad.id = newPostKey;
+          ad.imageKey = this.lastImageUploadedURL != '' ? this.lastImageUploadedURL : ad.imageKey;
+          let updates = {
+            ['/ads/' + newPostKey]: ad,
+            ['/user-ads/' + user.id + '/' + newPostKey]: ad
+          };
+          return Promise.resolve(this.firebaseService.database.ref().update(updates));
+        })
+      );
+    } else {
+      return Promise.resolve();
+    }
+      //let subscription = this.data.forEach(v => this.values.push(v))
+		    //.then(() => this.status = "Ended");
+
   }
 
   deleteAd(adKey: string, user: User) {
@@ -79,6 +95,27 @@ export class AdService {
       ['/user-ads/' + user.id + '/' + adKey]: null
     };
     return Promise.resolve(this.firebaseService.database.ref().update(updates));
+  }
+
+  uploadFile(file: File): Observable<any> {
+    //TODO TODO
+    return new Observable(observer => {
+      // Upload file and metadata to the object 'images/mountains.jpg'
+      let uploadTask = this.firebaseService.storage.ref().child('images/' + new Date()).put(file);
+
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on(this.firebaseService.firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          observer.next({'progress': progress});
+        }, 
+        (error) => { }, 
+        () => {
+          this.lastImageUploadedURL = uploadTask.snapshot.downloadURL;
+          observer.complete();
+      });
+    });
   }
 
 }

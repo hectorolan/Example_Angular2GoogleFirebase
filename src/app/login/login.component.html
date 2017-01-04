@@ -1,9 +1,6 @@
 <md-spinner *ngIf="loading" style="padding-top: 64px"></md-spinner>
 <md-card *ngIf="!loading" style="max-width:500px; margin:auto; margin-top:76px;">
   <form  [formGroup]="loginForm"  *ngIf="active"  (ngSubmit)="login()">
-    <md-card-title>
-      Login
-    </md-card-title>
     <md-card-content>
       <div>
         <md-input placeholder="email" type="email" style="width:100%;" formControlName="email" required>
@@ -18,8 +15,29 @@
     </md-card-content>
     <md-card-actions>
       <button md-button type="submit" [disabled]="!loginForm.valid">Login</button>
-      <button md-button (click)="cancelLogin()">Cancel</button>
-      <button md-raised-button (click)="loginGoogle()" style="padding-left:0;"><img src="../../assets/images/g-logo.svg">Sign in with Google</button>
+      <button md-button type="button" (click)="cancelLogin()">Cancel</button>
+      <button md-button type="button" (click)="cancelLogin()" style="float:right;">Forgot Password</button>
+    </md-card-actions>
+    <md-card-subtitle style="text-align:center;">
+      - or -
+    </md-card-subtitle>
+    <md-card-actions style="text-align:center;">
+      <button md-raised-button type="button" (click)="loginGoogle()" style="padding-left:0;"><img src="../../assets/images/g-logo.svg">Sign in with Google</button>
     </md-card-actions>
   </form>
+</md-card>
+<md-card *ngIf="!loading" style="max-width:500px; margin:auto; margin-top:76px;">
+    <md-card-title>
+      New Account
+    </md-card-title>
+    <md-card-content>
+      <div>
+        <md-input placeholder="password" type="password" style="width:100%;" required>
+          <md-hint *ngIf="" align="end">{{ formErrors.password }}</md-hint>
+        </md-input>
+      </div>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button type="submit" [disabled]="false">Create Account</button>
+    </md-card-actions>
 </md-card>
