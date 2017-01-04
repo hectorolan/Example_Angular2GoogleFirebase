@@ -38,7 +38,7 @@
       <md-card-title>Name</md-card-title>
       <md-card-content>
         <div style="display:block">
-          <md-input placeholder="Name" maxlength="50" style="width:100%;" formControlName="name" required [disabled]="gameSelected">
+          <md-input placeholder="Name" maxlength="50" style="width:100%;" formControlName="name" required>
             <md-hint *ngIf="formErrors.name" align="end">{{ formErrors.name }}</md-hint>
           </md-input>
         </div>

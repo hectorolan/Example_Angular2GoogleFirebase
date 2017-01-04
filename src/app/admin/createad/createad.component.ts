@@ -181,6 +181,7 @@ export class CreateAdComponent implements OnInit {
 
   onGameSelected(game: Game) {
     this.gameSelected = game;
+    this.formCreateAd.controls['name'].disable();
     this.formCreateAd.controls['name'].patchValue(game.name, {onlySelf: true});
     this.formCreateAd.controls['name'].updateValueAndValidity(true);
     if (this.gameSelected && this.gameSelected.cover) {
@@ -189,12 +190,14 @@ export class CreateAdComponent implements OnInit {
   }
 
   onGameUnselected() {
+    this.adImageSrc = '';
     this.gameSelected = null;
+    this.formCreateAd.controls['name'].enable();
     this.formCreateAd.controls['name'].patchValue('', {onlySelf: true});
     this.formCreateAd.controls['name'].updateValueAndValidity(true);
   }
   // or
-  onFileChanged(event: any) { 
+  onFileChanged(event: any) {
     this.adImageSrc = '';
     this.adImageFile = null;
     if (event.srcElement.files && event.srcElement.files[0]) {
