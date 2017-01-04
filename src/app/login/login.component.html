@@ -1,5 +1,6 @@
-<md-spinner *ngIf="loading" style="padding-top: 64px"></md-spinner>
-<md-card *ngIf="!loading" style="max-width:500px; margin:auto; margin-top:76px;">
+<md-spinner *ngIf="loading" style="padding-top:128px; margin:auto;"></md-spinner>
+<div *ngIf="!loading"> 
+<md-card style="max-width:500px; margin:auto; margin-top:76px;">
   <form  [formGroup]="loginForm"  *ngIf="active"  (ngSubmit)="login()">
     <md-card-content>
       <div>
@@ -26,18 +27,5 @@
     </md-card-actions>
   </form>
 </md-card>
-<md-card *ngIf="!loading" style="max-width:500px; margin:auto; margin-top:76px;">
-    <md-card-title>
-      New Account
-    </md-card-title>
-    <md-card-content>
-      <div>
-        <md-input placeholder="password" type="password" style="width:100%;" required>
-          <md-hint *ngIf="" align="end">{{ formErrors.password }}</md-hint>
-        </md-input>
-      </div>
-    </md-card-content>
-    <md-card-actions>
-      <button md-button type="submit" [disabled]="false">Create Account</button>
-    </md-card-actions>
-</md-card>
+<app-sign-up></app-sign-up>
+</div>
