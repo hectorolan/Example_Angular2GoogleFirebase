@@ -11,6 +11,11 @@
     </md-input>
     <md-checkbox formControlName="emailOnAd">Show email on new Ads</md-checkbox>
     </div>
+    <div *ngIf="password !== 'hide'">
+    <md-input placeholder="Password" type="password" maxlength="10" style="width:275px;" formControlName="password" required>
+        <md-hint *ngIf="formErrors.password" align="end">{{ formErrors.password }}</md-hint>
+    </md-input>
+    </div>
     <div>
     <md-input placeholder="Telephone" maxlength="15" type="tel" style="width:275px;" formControlName="telephone" required>
         <md-hint *ngIf="formErrors.telephone" align="end">{{ formErrors.telephone }}</md-hint>

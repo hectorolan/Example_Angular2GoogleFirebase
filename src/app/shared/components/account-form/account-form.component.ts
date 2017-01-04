@@ -15,14 +15,16 @@ export class AccountFormComponent implements OnInit {
   @Input()
   user: User;
 
-  @Output() saveSubmit = new EventEmitter<User>();
+  @Output() saveSubmit = new EventEmitter<{[key: string]: any}>();
   accountForm: FormGroup;
+  password: string;
   savedUser: User;
   active = true;
 
   formErrors = {
     'name': '',
     'email': '',
+    'password': '',
     'telephone': '',
     'city': ''
   };
@@ -35,6 +37,10 @@ export class AccountFormComponent implements OnInit {
     'email': {
       'required':     'Email is required.',
       'invalidEmail': 'Verify email address.'
+    },
+    'password': {
+      'required':   'Password is required.',
+      'minlength':  'Password must be at least 6 characters long.'
     },
     'telephone': {
       'required':   'Telephone is required.',
@@ -70,6 +76,11 @@ export class AccountFormComponent implements OnInit {
         ]
       ],
       'emailOnAd':  [this.user.emailOnAd],
+      'password': [this.password, [
+          Validators.required,
+          Validators.minLength(6)
+        ]
+      ],
       'telephone': [this.user.telephone, [
           Validators.required,
           Validators.minLength(10),
@@ -89,14 +100,23 @@ export class AccountFormComponent implements OnInit {
     this.accountForm.valueChanges.subscribe(data => this.onValueChanged(data));
 
     this.onValueChanged(); // (re)set validation messages now
+    
+    if (this.savedUser.email && this.savedUser.email !== ''){
+      this.accountForm.controls['email'].disable();
+      this.password = 'hide';
+      this.accountForm.controls['password'].disable();
+    }
   }
 
   onSubmit() {
     this.user = this.accountForm.value;
+    this.user.email = this.accountForm.controls['email'].value; // Preventing if disabled
+    this.password = this.accountForm.controls['password'].value; // Is not well binded
     this.user.id = this.authService.user.id;
     this.user.accessToken = this.authService.user.accessToken;
     this.user.avatarURL = this.authService.user.avatarURL;
-    this.saveSubmit.emit(this.user);
+    let response = {'user':this.user, 'password':this.password};
+    this.saveSubmit.emit(response);
   }
 
   cancelChanges() {
