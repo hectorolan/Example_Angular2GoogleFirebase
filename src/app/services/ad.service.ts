@@ -65,28 +65,30 @@ export class AdService {
   }
 
   saveAd(ad: Ad, user: User, adImageFile: File): Promise<any> {
-    if (adImageFile != null){
+    // Save the file/image to storage if file is not null
+    if (adImageFile != null) {
       return Promise.resolve(
         this.uploadFile(adImageFile)
-        .forEach((process: number) => { console.log(process) })
+        .forEach((process: number) => { console.log(process); })
         .then(() => {
-          // Get a key for a new Post.
-          let newPostKey = this.firebaseService.database.ref().child('ads').push().key;
-          ad.id = newPostKey;
-          ad.imageKey = this.lastImageUploadedURL != '' ? this.lastImageUploadedURL : ad.imageKey;
-          let updates = {
-            ['/ads/' + newPostKey]: ad,
-            ['/user-ads/' + user.id + '/' + newPostKey]: ad
-          };
-          return Promise.resolve(this.firebaseService.database.ref().update(updates));
+          ad.imageKey = this.lastImageUploadedURL !== '' ? this.lastImageUploadedURL : ad.imageKey;
+          this.lastImageUploadedURL = '';
+          return this.saveAd_ToDatabase(ad, user);
         })
       );
-    } else {
-      return Promise.resolve();
     }
-      //let subscription = this.data.forEach(v => this.values.push(v))
-		    //.then(() => this.status = "Ended");
+    return this.saveAd_ToDatabase(ad, user);
+  }
 
+  private saveAd_ToDatabase(ad: Ad, user: User): Promise<any> {
+    // Get a key for a new Post.
+    let newPostKey = this.firebaseService.database.ref().child('ads').push().key;
+    ad.id = newPostKey;
+    let updates = {
+      ['/ads/' + newPostKey]: ad,
+      ['/user-ads/' + user.id + '/' + newPostKey]: ad
+    };
+    return Promise.resolve(this.firebaseService.database.ref().update(updates));
   }
 
   deleteAd(adKey: string, user: User) {
@@ -98,10 +100,9 @@ export class AdService {
   }
 
   uploadFile(file: File): Observable<any> {
-    //TODO TODO
     return new Observable(observer => {
       // Upload file and metadata to the object 'images/mountains.jpg'
-      let uploadTask = this.firebaseService.storage.ref().child('images/' + new Date()).put(file);
+      let uploadTask = this.firebaseService.storage.ref().child('images/' + new Date().getTime()).put(file);
 
       // Listen for state changes, errors, and completion of the upload.
       uploadTask.on(this.firebaseService.firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -109,8 +110,8 @@ export class AdService {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           observer.next({'progress': progress});
-        }, 
-        (error) => { }, 
+        },
+        (error) => { },
         () => {
           this.lastImageUploadedURL = uploadTask.snapshot.downloadURL;
           observer.complete();
