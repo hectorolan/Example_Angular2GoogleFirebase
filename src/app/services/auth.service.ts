@@ -38,6 +38,7 @@ export class AuthService {
       this.user = new User();
       this.isLoggedIn = false;
       this.router.navigate(['/games']);
+      location.reload();
     }, 
     (error) => {
       console.log(error);
