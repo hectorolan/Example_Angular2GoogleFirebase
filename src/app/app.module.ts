@@ -17,11 +17,13 @@ import { AdService } from './services/ad.service';
 import { UserService } from './services/user.service';
 import { TogglenavService } from './services/togglenav.service';
 import { IgdbService } from './services/igdb.service';
+import { SignUpComponent } from './login/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     MaterialModule.forRoot(),
