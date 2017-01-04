@@ -43,6 +43,11 @@
           </md-input>
         </div>
         <app-igdb-results *ngIf="formCreateAd.controls['section'].value == 'games' && !gameSelected" [search]="formCreateAd.value.name" (onGameSelected)="onGameSelected($event)"></app-igdb-results>
+        <div>
+        <input type="file" id="myFile" *ngIf="formCreateAd.controls['section'].value != 'games' && !gameSelected" (change)="onFileChanged($event)"/>
+        </div>
+        <br><br>
+        <img style="width:288px;" *ngIf="adImageSrc!=''" [src]="adImageSrc" >
       </md-card-content>
       <md-card-actions>
         <button md-button (click)="resetChanges()"><md-icon class="md-24">clear</md-icon>Clear</button>
@@ -90,7 +95,7 @@
         <table>
           <tr>
             <td>
-              <img md-card-lg-image *ngIf="ad.imageKey" src="{{igdbService.getGameURL(ad.imageKey)}}" alt="{{ad.name}}">
+              <img style="width:288px;" *ngIf="adImageSrc!=''" [src]="adImageSrc" alt="{{ad.name}}">
             </td>
             <td>
               <label for="" *ngIf="ad.console !== ''">Console: {{consoles[ad.console]}}<br></label>

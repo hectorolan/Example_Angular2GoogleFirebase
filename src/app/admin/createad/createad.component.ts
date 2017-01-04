@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Section } from '../../models/section';
@@ -20,6 +20,8 @@ export class CreateAdComponent implements OnInit {
   prices;
   ad: Ad = new Ad();
   gameSelected: Game;
+  adImageFile: File;
+  adImageSrc: string = '';
 
   formActive = true;
   formCreateAd: FormGroup;
@@ -64,6 +66,8 @@ export class CreateAdComponent implements OnInit {
     this.gameSelected = null;
     this.formMessageCompletion = '';
     this.formTabSelectedIndex = '0';
+    this.adImageSrc = '';
+    this.adImageFile = null;
     this.prices = null;
     this.formCreateAd = this.formBuilder.group({
       'name': [this.ad.name, [
@@ -91,7 +95,7 @@ export class CreateAdComponent implements OnInit {
   }
 
   onSubmit() {
-    this.adService.saveAd(this.ad, this.authService.user).then(() => {
+    this.adService.saveAd(this.ad, this.authService.user, this.adImageFile).then(() => {
       this.router.navigate(['admin/myads']);
     });
   }
@@ -179,12 +183,27 @@ export class CreateAdComponent implements OnInit {
     this.gameSelected = game;
     this.formCreateAd.controls['name'].patchValue(game.name, {onlySelf: true});
     this.formCreateAd.controls['name'].updateValueAndValidity(true);
+    this.adImageSrc = this.igdbService.getGameURL(game.cover.cloudinary_id);
   }
 
   onGameUnselected() {
     this.gameSelected = null;
     this.formCreateAd.controls['name'].patchValue('', {onlySelf: true});
     this.formCreateAd.controls['name'].updateValueAndValidity(true);
+  }
+  // or
+  onFileChanged(event: any){ 
+    this.adImageSrc = '';
+    this.adImageFile = null;
+    if (event.srcElement.files && event.srcElement.files[0]) {
+      this.adImageFile = event.srcElement.files[0];
+        var reader = new FileReader();
+        reader.onload = (e: any) => {
+          console.log(e);
+          this.adImageSrc = e.target.result;
+        }
+        reader.readAsDataURL(event.srcElement.files[0]);
+    }
   }
 
   keys(dictionary): Array<string> {
