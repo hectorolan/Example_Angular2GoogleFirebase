@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
+import { GCSharedModule } from './shared/gcshared/gcshared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginRoutingModule } from './login/login-routing.module';
 import { MainModule } from './main/main.module';
@@ -31,6 +32,7 @@ import { SignUpComponent } from './login/sign-up/sign-up.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    GCSharedModule,
     LoginRoutingModule,
     AdminModule,
     MainModule,
