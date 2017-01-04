@@ -17,7 +17,7 @@ export class AccountFormComponent implements OnInit {
 
   @Output() saveSubmit = new EventEmitter<User>();
   accountForm: FormGroup;
-  savedUser = new User();
+  savedUser: User;
   active = true;
 
   formErrors = {
@@ -54,11 +54,11 @@ export class AccountFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.savedUser = this.user;
     this.buildForm();
   }
 
   buildForm(): void {
-    // this.user = this.authService.user;
     this.accountForm = this.formBuilder.group({
       'name': [this.user.name, [
           Validators.required,

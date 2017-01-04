@@ -1,1 +1,4 @@
-<app-account-form [user]="user" (onSubmit)="saveSubmit($event)"></app-account-form>
+<md-card> 
+    <md-card-title>Account Information</md-card-title>
+    <app-account-form #accountForm [user]="user" (saveSubmit)="saveSubmit($event)"></app-account-form>
+</md-card>

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../models/user';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material/snack-bar';
+import { MdSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
+import { AccountFormComponent } from '../../shared/components/account-form/account-form.component';
 
 @Component({
   selector: 'app-user',
@@ -11,6 +11,9 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+
+  @ViewChild(AccountFormComponent)
+  private accountFormComponent: AccountFormComponent;
 
   user: User = new User();
 
@@ -30,9 +33,8 @@ export class UserComponent implements OnInit {
       this.authService.refreshFireBaseVariables().then(() => {
         let snackRef = this.snackBar.open('Saved!');
         setTimeout(() => { snackRef.dismiss(); }, 2000);
-        // TODO RebuildForm
+        this.accountFormComponent.buildForm();
       });
     });
   }
-
 }

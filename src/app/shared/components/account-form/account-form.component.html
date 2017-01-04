@@ -1,6 +1,4 @@
-<md-card *ngIf="user"> 
-  <form [formGroup]="accountForm"  *ngIf="active"  (ngSubmit)="onSubmit()">
-  <md-card-title>Account Information</md-card-title>
+<form [formGroup]="accountForm"  *ngIf="active && user"  (ngSubmit)="onSubmit()">
   <md-card-content>
     <div>
     <md-input placeholder="Name" maxlength="50" style="width:275px;" formControlName="name" required>
@@ -35,5 +33,4 @@
     <button md-button type="submit" [disabled]="!accountForm.valid">Save</button>
     <button md-button (click)="cancelChanges()">Cancel</button>
   </md-card-actions>
-  </form>
-</md-card>
+</form>

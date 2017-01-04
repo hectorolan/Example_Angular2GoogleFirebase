@@ -22,7 +22,16 @@ export class UserService {
     return Promise.resolve(this.firebaseService.database.ref('users/' + user.id).set(user));
   }
 
+  createUser(email: string, password: string) {
+    return Promise.resolve(this.firebaseService.auth.createUserWithEmailAndPassword(email, password).catch((error: any) => {
+        console.log('Error creating new user:');
+        console.log(error.code);
+        console.log(error.message);
+      }));
+  }
+
   updateUser() {
 
   }
+  //TODO diferentiate the saveuser to database vs create new user on auth
 }
