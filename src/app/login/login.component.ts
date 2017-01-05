@@ -41,6 +41,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.togglenavService.showNavToggleBtn = false;
     this.buildForm();
+    this.checkIfAlreadyLoggedIn();
+  }
+
+  checkIfAlreadyLoggedIn() {
     this.authService.checkIfLoggedIn().then(() => {
       if (this.authService.isLoggedIn) {
           let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin/myads';
@@ -70,6 +74,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.authService.login(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value).then((errors) => {
+      console.log(errors);
+      this.checkIfAlreadyLoggedIn();
+    });
   }
 
   loginGoogle() {

@@ -22,14 +22,21 @@ export class AuthService {
   isLoggedIn: boolean = false;
   redirectUrl: string;
 
-  constructor(private router: Router, private firebaseService: FirebaseService, private userService: UserService) {
-  }
+  constructor(private router: Router, private firebaseService: FirebaseService, private userService: UserService) { }
 
-  login(): any {
+  login(email: string, password: string): Promise<any> {
+    return Promise.resolve(
+    this.firebaseService.auth.signInWithEmailAndPassword(email, password).catch((error) => {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+      return(error.code);
+    }));
   }
 
   loginGoogle(): any {
-    var provider = this.firebaseService.GoogleAuthProvider();
+    let provider = this.firebaseService.GoogleAuthProvider();
     return this.firebaseService.auth.signInWithRedirect(provider);
   }
 
@@ -39,7 +46,7 @@ export class AuthService {
       this.isLoggedIn = false;
       this.router.navigate(['/games']);
       location.reload();
-    }, 
+    },
     (error) => {
       console.log(error);
     });
@@ -47,12 +54,12 @@ export class AuthService {
 
   checkIfLoggedIn(): Promise<any> {
     return Promise.resolve().then(() => {
-      if (this.isLoggedIn){
+      if (this.isLoggedIn) {
         return true;
       }
       return Promise.resolve(this.refreshFireBaseVariables());
     }).then(() => {
-      if (this.isLoggedIn){
+      if (this.isLoggedIn) {
         return true;
       }
       return Promise.resolve(this.getFirebaseRedirectResult());
