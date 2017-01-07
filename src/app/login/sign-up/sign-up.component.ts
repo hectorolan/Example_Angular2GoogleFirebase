@@ -25,16 +25,22 @@ export class SignUpComponent implements OnInit {
 
   saveSubmit(data: {[key: string]: any}) {
     this.user = data['user'];
-    this.userService.createUser(this.user.email, data['password']).then(() => {
+    this.userService.createUser(this.user.email, data['password'])
+    .then(() => {
       if (this.userService.getUserUid() !== '') {
         this.user.id = this.userService.getUserUid();
-        this.userService.saveUser(this.user).then(() => {
-        this.authService.refreshFireBaseVariables().then(() => {
-          let snackRef = this.snackBar.open('Saved!');
-          setTimeout(() => { snackRef.dismiss(); }, 2000);
-          this.router.navigate(['/admin/myads']);
+        this.userService.saveUser(this.user)
+        .then(() => {
+          this.authService.refreshFireBaseVariables()
+          .then(() => {
+            let snackRef = this.snackBar.open('Saved!');
+            setTimeout(() => { snackRef.dismiss(); }, 2000);
+          })
+          .then(() => {
+            this.userService.sendEmailVerification();
+            this.router.navigate(['/verify-email']);
+          });
         });
-      });
       }
     });
   }

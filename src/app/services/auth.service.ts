@@ -1,20 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Injectable, NgZone } from '@angular/core';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { FirebaseService } from './firebase.service';
 import { UserService } from './user.service';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyA7cHIY_mihlnv4xefUsQEGE6xoxuwyn7k',
-  authDomain: 'gamesclasificados.firebaseapp.com',
-  databaseURL: 'https://gamesclasificados.firebaseio.com',
-  storageBucket: 'gamesclasificados.appspot.com',
-  messagingSenderId: '292788060773'
-};
 
 @Injectable()
 export class AuthService {
@@ -22,7 +13,18 @@ export class AuthService {
   isLoggedIn: boolean = false;
   redirectUrl: string;
 
-  constructor(private router: Router, private firebaseService: FirebaseService, private userService: UserService) { }
+  constructor(private router: Router, private firebaseService: FirebaseService, private userService: UserService, private ngzone: NgZone) {
+    this.firebaseService.auth.onAuthStateChanged((user) => {
+      if (user) {
+        if (!this.isLoggedIn) {
+          // this.refreshFireBaseVariables()
+          this.ngzone.run(() => this.refreshFireBaseVariables());
+        }
+      } else {
+        // No user is signed in.
+      }
+    });
+   }
 
   login(email: string, password: string): Promise<any> {
     return Promise.resolve(
@@ -52,48 +54,35 @@ export class AuthService {
     });
   }
 
-  checkIfLoggedIn(): Promise<any> {
-    return Promise.resolve().then(() => {
-      if (this.isLoggedIn) {
-        return true;
-      }
-      return Promise.resolve(this.refreshFireBaseVariables());
-    }).then(() => {
-      if (this.isLoggedIn) {
-        return true;
-      }
-      return Promise.resolve(this.getFirebaseRedirectResult());
-    });
+  isEmailVerified(): boolean {
+    if (this.firebaseService.auth.currentUser) {
+      return this.firebaseService.auth.currentUser.emailVerified;
+    }
+    return false;
   }
 
-  getFirebaseRedirectResult(): Promise<any> {
+  checkIfLoggedIn(): Promise<any> {
+      console.log('check log in');
     return Promise.resolve().then(() => {
-      return this.firebaseService.auth.getRedirectResult().then((result) => {
-        if (result.user) {
-          return Promise.resolve(this.userService.getUser(result.user.uid)).then((user) => {
-              this.isLoggedIn = true;
-              if (user) {
-                this.user = user;
-              } else {
-                this.user.accessToken = result.credential.accessToken;
-                this.user.name = result.user.displayName;
-                this.user.email = result.user.email;
-                this.user.avatarURL = result.user.photoURL;
-                this.user.id = result.user.uid;
-                return Promise.resolve(this.userService.saveUser(this.user));
-              }
-          });
+      if (this.isLoggedIn) {
+        return true;
+      }
+      console.log('refresh');
+      return this.refreshFireBaseVariables().then(() => {
+        if (this.isLoggedIn) {
+          return true;
         }
-      }).catch((error: any) => {
-        console.log(error);
-      })
+      console.log('getredirect');
+        return this.getFirebaseRedirectResult();
+      });
     });
   }
 
   refreshFireBaseVariables(): Promise<any> {
     return Promise.resolve().then(() => {
+      console.log(this.firebaseService.auth.currentUser);
         if (this.firebaseService.auth.currentUser) {
-          return Promise.resolve(this.userService.getUser(this.firebaseService.auth.currentUser.uid)).then((user) => {
+          return this.userService.getUser(this.userService.getUserUid()).then((user) => {
             if (user) {
               this.isLoggedIn = true;
               this.user = user;
@@ -101,5 +90,30 @@ export class AuthService {
           });
         }
     });
+  }
+
+  getFirebaseRedirectResult(): Promise<any> {
+    return Promise.resolve(
+      this.firebaseService.auth.getRedirectResult().then((result) => {
+      console.log(result.user);
+        if (result) {
+          return this.userService.getUser(result.user.uid).then((user) => {
+              this.isLoggedIn = true;
+              if (user) {
+                this.user = user;
+              } else {
+                // First Time, create user on db
+                this.user.accessToken = result.credential.accessToken;
+                this.user.name = result.user.displayName;
+                this.user.email = result.user.email;
+                this.user.avatarURL = result.user.photoURL;
+                this.user.id = result.user.uid;
+                return this.userService.saveUser(this.user);
+              }
+          });
+        }
+      }).catch((error: any) => {
+        console.log(error);
+      }));
   }
 }
