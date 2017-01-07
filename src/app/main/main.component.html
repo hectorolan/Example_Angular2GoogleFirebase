@@ -14,8 +14,8 @@
     </td>
   </tr>
 </table>-->
-<md-sidenav-layout  style="padding-top: 64px">
-  <md-sidenav mode="{{ navMode }}" opened="{{ initOpened }}" #navpanel id="navpanel" style="padding-top: 64px">
+<md-sidenav-layout style="padding-top:64px;">
+  <md-sidenav mode="{{ navMode }}" opened="{{ initOpened }}" #navpanel id="navpanel" style="padding-top:64px;">
     <md-nav-list style="width:200px;">
       <a *ngIf="!authService.isLoggedIn" md-list-item routerLink="/login" routerLinkActive="active">Log in</a>
       <a *ngFor="let console of keys(consoles);" md-list-item routerLink="/games/{{console}}" routerLinkActive="active" (click)="onMenuSelected();">{{ consoles[console] }}</a>
