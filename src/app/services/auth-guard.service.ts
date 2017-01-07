@@ -24,18 +24,24 @@ export class AuthGuardService implements CanActivate, CanActivateChild, CanLoad 
 
   checkLogin(url: string): Promise<boolean> {
     return this.authService.checkIfLoggedIn().then(() => {
-      if (this.authService.isLoggedIn) {
+      if (this.authService.isLoggedIn && this.authService.isEmailVerified()) {
         return true;
       }
-      this.authService.redirectUrl = url;
-      // let sessionId = 987654321;
-      // let navigationExtras: NavigationExtras = {
-      //  queryParams: {'session_id': sessionId},
-      //  fragment: 'anchor'
-      // };
-      // this.router.navigate(['/login'], navigationExtras);
-      this.router.navigate(['/login']);
-      return false;
+      if (!this.authService.isLoggedIn) {
+        this.authService.redirectUrl = url;
+        // let sessionId = 987654321;
+        // let navigationExtras: NavigationExtras = {
+        //  queryParams: {'session_id': sessionId},
+        //  fragment: 'anchor'
+        // };
+        // this.router.navigate(['/login'], navigationExtras);
+        this.router.navigate(['/login']);
+        return false;
+      }
+      if (!this.authService.isEmailVerified()) {
+        this.router.navigate(['/verify-email']);
+        return false;
+      }
     });
   }
 }
