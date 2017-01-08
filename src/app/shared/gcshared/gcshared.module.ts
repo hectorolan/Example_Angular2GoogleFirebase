@@ -13,6 +13,7 @@ import { MdInputModule } from '@angular/material/input';
 import { MdCheckboxModule } from '@angular/material/checkbox';
 import { MdRadioModule } from '@angular/material/radio';
 import { MdSnackBarModule } from '@angular/material/snack-bar';
+import { MdDialogModule } from '@angular/material/dialog';
 import { AdlistComponent } from '../components/adlist/adlist.component';
 import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module';
 import { AccountFormComponent } from '../components/account-form/account-form.component';
@@ -35,6 +36,7 @@ import { AccountFormRoutingModule } from '../components/account-form/account-for
     MdCheckboxModule,
     MdRadioModule,
     MdSnackBarModule,
+    MdDialogModule,
     AdlistRoutingModule,
     AccountFormRoutingModule
   ],
@@ -58,6 +60,7 @@ import { AccountFormRoutingModule } from '../components/account-form/account-for
     MdCheckboxModule,
     MdRadioModule,
     MdSnackBarModule,
+    MdDialogModule,
     AdlistComponent,
     AccountFormComponent
   ]
