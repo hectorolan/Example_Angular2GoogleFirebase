@@ -29,7 +29,7 @@ export class UserComponent implements OnInit {
 
   saveSubmit(data: {[key: string]: any}) {
     this.user = data['user'];
-    //this.user = user;
+    // this.user = user;
     this.userService.saveUser(this.user).then(() => {
       this.authService.refreshFireBaseVariables().then(() => {
         let snackRef = this.snackBar.open('Saved!');

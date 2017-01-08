@@ -1,7 +1,6 @@
 export class User {
     id: string;
     name: string;
-    email: string;
     avatarURL: string;
     telephone: string;
     city: string;
@@ -15,7 +14,6 @@ export class User {
     constructor(
     id = '',
     name = '',
-    email = '',
     avatarURL = '',
     telephone = '',
     city = '',
@@ -27,7 +25,6 @@ export class User {
     accessToken = '') {
         this.id = id;
         this.name = name;
-        this.email = email;
         this.avatarURL = avatarURL;
         this.telephone = telephone;
         this.city = city;

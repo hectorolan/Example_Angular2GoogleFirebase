@@ -7,6 +7,7 @@ import { Ad } from '../../models/ad';
 import { User } from '../../models/user';
 import { AdService } from '../../services/ad.service';
 import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 import { IgdbService, Game } from '../../services/igdb.service';
 
 @Component({
@@ -54,6 +55,7 @@ export class CreateAdComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private adService: AdService,
     private igdbService: IgdbService) { }
 
@@ -164,7 +166,7 @@ export class CreateAdComponent implements OnInit {
     this.ad = this.formCreateAd.value;
     this.ad.owner = user.name;
     this.ad.ownerid = user.id;
-    this.ad.email = user.emailOnAd === true ? user.email : '';
+    this.ad.email = user.emailOnAd === true ? this.userService.getUserEmail() : '';
     this.ad.city = user.city;
     this.ad.telephone = user.telephoneOnAd === true ? user.telephone : '';
     this.ad.expDate = new Date();
@@ -204,7 +206,6 @@ export class CreateAdComponent implements OnInit {
       this.adImageFile = event.srcElement.files[0];
         let reader = new FileReader();
         reader.onload = (e: any) => {
-          console.log(e);
           this.adImageSrc = e.target.result;
         }
         reader.readAsDataURL(event.srcElement.files[0]);

@@ -25,7 +25,7 @@ export class SignUpComponent implements OnInit {
 
   saveSubmit(data: {[key: string]: any}) {
     this.user = data['user'];
-    this.userService.createUser(this.user.email, data['password'])
+    this.userService.createUser(data['email'], data['password'])
     .then(() => {
       if (this.userService.getUserUid() !== '') {
         this.user.id = this.userService.getUserUid();

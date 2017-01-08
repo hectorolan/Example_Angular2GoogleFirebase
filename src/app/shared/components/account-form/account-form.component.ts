@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '../../../models/user';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material/snack-bar';
+import { MdSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
 
@@ -16,6 +16,7 @@ export class AccountFormComponent implements OnInit {
   user: User;
 
   @Output() saveSubmit = new EventEmitter<{[key: string]: any}>();
+  email: string = '';
   accountForm: FormGroup;
   password: string;
   savedUser: User;
@@ -61,6 +62,7 @@ export class AccountFormComponent implements OnInit {
 
   ngOnInit() {
     this.savedUser = this.user;
+    this.email = this.userService.getUserEmail();
     this.buildForm();
   }
 
@@ -71,7 +73,7 @@ export class AccountFormComponent implements OnInit {
           Validators.minLength(3)
         ]
       ],
-      'email': [this.user.email, [
+      'email': [this.email, [
           Validators.required
         ]
       ],
@@ -100,8 +102,7 @@ export class AccountFormComponent implements OnInit {
     this.accountForm.valueChanges.subscribe(data => this.onValueChanged(data));
 
     this.onValueChanged(); // (re)set validation messages now
-    
-    if (this.savedUser.email && this.savedUser.email !== ''){
+    if (this.userService.getUserEmail() !== '') {
       this.accountForm.controls['email'].disable();
       this.password = 'hide';
       this.accountForm.controls['password'].disable();
@@ -110,12 +111,14 @@ export class AccountFormComponent implements OnInit {
 
   onSubmit() {
     this.user = this.accountForm.value;
-    this.user.email = this.accountForm.controls['email'].value; // Preventing if disabled
+    delete this.user['password'];
+    delete this.user['email'];
+    this.email = this.accountForm.controls['email'].value;
     this.password = this.accountForm.controls['password'].value; // Is not well binded
     this.user.id = this.authService.user.id;
     this.user.accessToken = this.authService.user.accessToken;
     this.user.avatarURL = this.authService.user.avatarURL;
-    let response = {'user':this.user, 'password':this.password};
+    let response = {'user': this.user, 'email': this.accountForm.controls['email'].value, 'password': this.password};
     this.saveSubmit.emit(response);
   }
 

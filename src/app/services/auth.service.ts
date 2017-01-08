@@ -37,6 +37,18 @@ export class AuthService {
     }));
   }
 
+  reautenticateUser(email: string, password: string): Promise<any> {
+    const credential = this.firebaseService.EmailAuthProvider().credential(
+        email,
+        password
+    );
+    return Promise.resolve(this.firebaseService.auth.currentUser.reauthenticate(credential).then(() => {
+        return true;
+      }, (error) => {
+        return false;
+    }));
+  }
+
   loginGoogle(): any {
     let provider = this.firebaseService.GoogleAuthProvider();
     return this.firebaseService.auth.signInWithRedirect(provider);
@@ -62,17 +74,14 @@ export class AuthService {
   }
 
   checkIfLoggedIn(): Promise<any> {
-      console.log('check log in');
     return Promise.resolve().then(() => {
       if (this.isLoggedIn) {
         return true;
       }
-      console.log('refresh');
       return this.refreshFireBaseVariables().then(() => {
         if (this.isLoggedIn) {
           return true;
         }
-      console.log('getredirect');
         return this.getFirebaseRedirectResult();
       });
     });
@@ -80,7 +89,6 @@ export class AuthService {
 
   refreshFireBaseVariables(): Promise<any> {
     return Promise.resolve().then(() => {
-      console.log(this.firebaseService.auth.currentUser);
         if (this.firebaseService.auth.currentUser) {
           return this.userService.getUser(this.userService.getUserUid()).then((user) => {
             if (user) {
@@ -95,7 +103,6 @@ export class AuthService {
   getFirebaseRedirectResult(): Promise<any> {
     return Promise.resolve(
       this.firebaseService.auth.getRedirectResult().then((result) => {
-      console.log(result.user);
         if (result) {
           return this.userService.getUser(result.user.uid).then((user) => {
               this.isLoggedIn = true;
@@ -105,7 +112,6 @@ export class AuthService {
                 // First Time, create user on db
                 this.user.accessToken = result.credential.accessToken;
                 this.user.name = result.user.displayName;
-                this.user.email = result.user.email;
                 this.user.avatarURL = result.user.photoURL;
                 this.user.id = result.user.uid;
                 return this.userService.saveUser(this.user);
@@ -115,5 +121,20 @@ export class AuthService {
       }).catch((error: any) => {
         console.log(error);
       }));
+  }
+
+  updateAuthorizationEmail(email: string, originalEmail: string, password: string): Promise<any> {
+    return this.reautenticateUser(originalEmail, password).then((reautenticated) => {
+      console.log(reautenticated);
+      if (reautenticated) {
+        return Promise.resolve(this.firebaseService.auth.currentUser.updateEmail(email).then(() => {
+          return true;
+        }, (error) => {
+          console.log(error);
+          throw 'Not Autenticated User';
+        }));
+      }
+      throw 'Not Autenticated User';
+    });
   }
 }
