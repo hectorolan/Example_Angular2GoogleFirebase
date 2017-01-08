@@ -17,9 +17,9 @@
           </div>
         </md-card-content>
         <md-card-actions>
-          <button md-raised-button type="submit" [disabled]="!loginForm.valid">Login</button>
+          <button md-raised-button type="button" (click)="cancelLogin()" style="float:right; margin-bottom:8px; margin-right:4px;">Forgot Password</button>
+          <button md-raised-button type="submit" [disabled]="!loginForm.valid" style="margin-bottom:8px;">Login</button>
           <button md-raised-button type="button" (click)="cancelLogin()">Cancel</button>
-          <button md-raised-button type="button" (click)="cancelLogin()" style="float:right;">Forgot Password</button>
         </md-card-actions>
         <md-card-subtitle style="text-align:center;">
           - or -
