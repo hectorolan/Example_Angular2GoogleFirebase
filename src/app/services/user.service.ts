@@ -7,9 +7,16 @@ export class UserService {
 
   constructor(private firebaseService: FirebaseService) { }
 
-  getUserUid(): string  {
+  getUserUid(): string {
     if (this.firebaseService.auth.currentUser) {
-      return this.firebaseService.auth.currentUser.uid
+      return this.firebaseService.auth.currentUser.uid;
+    }
+    return '';
+  }
+
+  getUserEmail(): string {
+    if (this.firebaseService.auth.currentUser) {
+      return this.firebaseService.auth.currentUser.email;
     }
     return '';
   }
@@ -36,11 +43,6 @@ export class UserService {
         console.log(error.message);
       }));
   }
-
-  updateUser() {
-
-  }
-  //TODO diferentiate the saveuser to database vs create new user on auth
 
   sendEmailVerification(): Promise<any> {
     if (this.firebaseService.auth.currentUser) {

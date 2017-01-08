@@ -30,4 +30,8 @@ export class FirebaseService {
     return new firebase.auth.GoogleAuthProvider();
   }
 
+  EmailAuthProvider(): any {
+    return firebase.auth.EmailAuthProvider;
+  }
+
 }
