@@ -1,3 +1,14 @@
-<p  style="padding-top:64px;">
-  Please verify your email before you can resell your games!!
-</p>
+<div style="padding-top:64px;">
+  <div style="max-width:500px;min-width:300px; margin:auto">
+    <md-card>
+      <md-card-title style="text-align:center;">Verify your email before you can play!</md-card-title>
+      <md-card-subtitle>
+        {{ email }}
+      </md-card-subtitle>
+      <md-card-actions>
+        <button md-raised-button type="button" (click)="resendVerificationEmail()" style="margin-bottom:8px; margin-left:4px; margin-right:4px;">Send new Verification Email</button>
+        <button md-raised-button type="button" (click)="changeEmail()">Change Email</button>
+      </md-card-actions>
+    </md-card>
+  </div>
+</div>

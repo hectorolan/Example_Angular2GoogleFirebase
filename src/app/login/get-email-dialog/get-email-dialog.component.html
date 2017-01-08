@@ -1,0 +1,17 @@
+<h1 md-dialog-title>Email Address</h1>
+<form  [formGroup]="getEmailForm"  *ngIf="active"  (ngSubmit)="closeSubmit()">
+  <md-dialog-actions>
+    <div>
+      <md-input placeholder="new email" type="email" style="width:100%;" formControlName="email" required>
+        <md-hint *ngIf="formErrors.email" align="end">{{ formErrors.email }}</md-hint>
+      </md-input>
+    </div>
+    <div>
+      <md-input placeholder="re-enter password" type="password" style="width:100%;" formControlName="password" required>
+        <md-hint *ngIf="formErrors.password" align="end">{{ formErrors.password }}</md-hint>
+      </md-input>
+    </div>
+    <button md-raised-button type="submit" [disabled]="!getEmailForm.valid" style="margin-bottom:8px;">Submit</button>
+    <button md-raised-button md-dialog-close type="button">Cancel</button>
+  </md-dialog-actions>
+</form>

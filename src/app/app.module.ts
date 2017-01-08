@@ -20,13 +20,18 @@ import { TogglenavService } from './services/togglenav.service';
 import { IgdbService } from './services/igdb.service';
 import { SignUpComponent } from './login/sign-up/sign-up.component';
 import { EmailVerificationComponent } from './login/email-verification/email-verification.component';
+import { GetEmailDialogComponent } from './login/get-email-dialog/get-email-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    EmailVerificationComponent
+    EmailVerificationComponent,
+    GetEmailDialogComponent
+  ],
+  entryComponents: [
+    GetEmailDialogComponent
   ],
   imports: [
     MaterialModule.forRoot(),
