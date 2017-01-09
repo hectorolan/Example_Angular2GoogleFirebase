@@ -6,6 +6,6 @@
     <button *ngIf="tooglenavService.showNavToggleBtn" md-icon-button (click)="toggleNav();">
       <i class="material-icons">menu</i>
     </button>
-    <span>{{title}}</span>
+    <span routerLink="/games" routerLinkActive="active">{{title}}</span>
   </md-toolbar>
 </div>
