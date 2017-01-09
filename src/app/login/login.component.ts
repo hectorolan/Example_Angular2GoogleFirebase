@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MdSnackBar, MdSnackBarRef } from '@angular/material/snack-bar';
+import { MdSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../services/auth.service';
 import { TogglenavService } from '../services/togglenav.service';
 
@@ -29,8 +29,7 @@ export class LoginComponent implements OnInit {
     },
     'password': {
       'required':   'Password is required.',
-      'minlength':  'Password must be at least 6 characters long.',
-      'incorrectPassword': 'Incorrect password.'
+      'minlength':  'Password must be at least 6 characters long.'
     }
   };
 
@@ -38,8 +37,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private togglenavService: TogglenavService,
-    private snackBar: MdSnackBar) { }
+    private togglenavService: TogglenavService) { }
 
   ngOnInit() {
     this.togglenavService.showNavToggleBtn = false;
