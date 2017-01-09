@@ -18,10 +18,12 @@ export class AccountFormComponent implements OnInit {
   @Output() saveSubmit = new EventEmitter<{[key: string]: any}>();
   email: string = '';
   accountForm: FormGroup;
+  showPassword = false;
   password: string;
   savedUser: User;
   active = true;
 
+  formCustomError = null;
   formErrors = {
     'name': '',
     'email': '',
@@ -104,12 +106,19 @@ export class AccountFormComponent implements OnInit {
     this.onValueChanged(); // (re)set validation messages now
     if (this.userService.getUserEmail() !== '') {
       this.accountForm.controls['email'].disable();
-      this.password = 'hide';
       this.accountForm.controls['password'].disable();
+    } else {
+      this.showPassword = true;
     }
   }
 
   onSubmit() {
+    if (this.accountForm.controls['emailOnAd'].value === false && this.accountForm.controls['telephoneOnAd'].value === false) {
+      this.formCustomError = `Please have an available contact 
+        method: \'Show email on Ad\' or \'Show phone on Ad\' are required to continue.`;
+      return false;
+    }
+    this.formCustomError = null;
     this.user = this.accountForm.value;
     delete this.user['password'];
     delete this.user['email'];

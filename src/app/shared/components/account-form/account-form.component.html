@@ -1,10 +1,8 @@
 <form [formGroup]="accountForm"  *ngIf="active && user"  (ngSubmit)="onSubmit()">
+<md-card-subtitle style="color:#ff3333;"> 
+    {{ formCustomError }}
+</md-card-subtitle>
   <md-card-content>
-    <div>
-    <md-input placeholder="Name" maxlength="50" style="width:100%;" formControlName="name" required>
-        <md-hint *ngIf="formErrors.name" align="end">{{ formErrors.name }}</md-hint>
-    </md-input>
-    </div>
     <div>
     <table style="border-collapse: collapse; width: 100%;">
         <tr>
@@ -19,9 +17,19 @@
         </tr>
     </table>
     </div>
-    <div *ngIf="password !== 'hide'">
+    <div *ngIf="showPassword">
     <md-input placeholder="Password" type="password" maxlength="10" style="width:100%;" formControlName="password" required>
         <md-hint *ngIf="formErrors.password" align="end">{{ formErrors.password }}</md-hint>
+    </md-input>
+    </div>
+    <div>
+    <md-input placeholder="Name" maxlength="50" style="width:100%;" formControlName="name" required>
+        <md-hint *ngIf="formErrors.name" align="end">{{ formErrors.name }}</md-hint>
+    </md-input>
+    </div>
+    <div>
+    <md-input placeholder="City" maxlength="50" style="width:100%;" formControlName="city" required>
+        <md-hint *ngIf="formErrors.city" align="end">{{ formErrors.city }}</md-hint>
     </md-input>
     </div>
     <div>
@@ -39,15 +47,10 @@
     </table>
     </div>
     <div>
-    <md-input placeholder="City" maxlength="50" style="width:100%;" formControlName="city" required>
-        <md-hint *ngIf="formErrors.city" align="end">{{ formErrors.city }}</md-hint>
-    </md-input>
-    </div>
-    <div>
-      <md-input disabled value="Contact me by:" style="width:100%;"></md-input><br>
+      <!--<md-input disabled value="Contact me by:" style="width:100%;"></md-input><br>-->
       <md-checkbox formControlName="methodCall">Call</md-checkbox>
       <md-checkbox formControlName="methodTextMessage">Text Message</md-checkbox>
-      <md-checkbox formControlName="methodEmail">Email</md-checkbox>
+      <!--<md-checkbox formControlName="methodEmail">Email</md-checkbox>-->
     </div>
   </md-card-content>
   <md-card-actions>
