@@ -1,4 +1,13 @@
-<md-card> 
-    <md-card-title>Account Information</md-card-title>
-    <app-account-form #accountForm [user]="user" (saveSubmit)="saveSubmit($event)"></app-account-form>
-</md-card>
+<div style="height:100%;">
+    <md-card> 
+        <md-card-title>Account Information</md-card-title>
+        <app-account-form #accountForm [user]="user" (saveSubmit)="saveSubmit($event)"></app-account-form>
+    </md-card>
+    <md-card>
+        <md-card-actions>
+            <button type="button" md-button>Change Password</button>
+            <button type="button" md-button>Delete Account</button>
+            <button type="button" md-button>Terms and Conditions</button>
+        </md-card-actions>
+    </md-card>
+</div>
