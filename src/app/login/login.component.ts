@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MdSnackBar, MdSnackBarRef } from '@angular/material/snack-bar';
 import { AuthService } from '../services/auth.service';
 import { TogglenavService } from '../services/togglenav.service';
 
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     },
     'password': {
       'required':   'Password is required.',
-      'minlength':  'Password must be at least 6 characters long.'
+      'minlength':  'Password must be at least 6 characters long.',
+      'incorrectPassword': 'Incorrect password.'
     }
   };
 
@@ -36,7 +38,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private togglenavService: TogglenavService) { }
+    private togglenavService: TogglenavService,
+    private snackBar: MdSnackBar) { }
 
   ngOnInit() {
     this.togglenavService.showNavToggleBtn = false;
@@ -73,8 +76,21 @@ export class LoginComponent implements OnInit {
     this.onValueChanged();
   }
 
-  login() {
-    this.authService.login(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value).then((errors) => {
+  login(emailCtrl, passwordCtrl) {
+    this.authService.login(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value)
+    .then((errors) => {
+      switch (errors) {
+        case 'auth/user-not-found':
+          passwordCtrl.value = '';
+          this.formErrors.email = 'The email you\'ve entered doesn\'t match any account.';
+          emailCtrl.focus();
+          return;
+        case 'auth/wrong-password':
+          passwordCtrl.value = '';
+          this.formErrors.password = 'The password you\'ve entered is incorrect.';
+          passwordCtrl.focus();
+          return;
+      }
       this.checkIfAlreadyLoggedIn();
     });
   }

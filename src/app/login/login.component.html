@@ -3,15 +3,15 @@
   <div style="max-width:400px; min-width:300px; margin:auto;">
     <md-card>
       <md-card-title style="text-align:center;">Log in to admin your ads!</md-card-title>
-      <form  [formGroup]="loginForm"  *ngIf="active"  (ngSubmit)="login()">
+      <form  [formGroup]="loginForm"  *ngIf="active"  (ngSubmit)="login(emailCtrl, passwordCtrl)">
         <md-card-content>
-          <div>
-            <md-input placeholder="email" type="email" style="width:100%;" formControlName="email" required>
+          <div style="margin:8px 0;">
+            <md-input placeholder="email" type="email" style="width:100%;" formControlName="email" #emailCtrl required>
               <md-hint *ngIf="formErrors.email" align="end">{{ formErrors.email }}</md-hint>
             </md-input>
           </div>
-          <div>
-            <md-input placeholder="password" type="password" style="width:100%;" formControlName="password" required>
+          <div style="margin:8px 0;">
+            <md-input placeholder="password" type="password" style="width:100%;" formControlName="password" #passwordCtrl required>
               <md-hint *ngIf="formErrors.password" align="end">{{ formErrors.password }}</md-hint>
             </md-input>
           </div>
