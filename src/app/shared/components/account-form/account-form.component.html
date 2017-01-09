@@ -8,12 +8,12 @@
     <div>
     <table style="border-collapse: collapse; width: 100%;">
         <tr>
-            <td >
+            <td style="width:100%;">
                 <md-input placeholder="Email" maxlength="50" type="email" style="width:100%;" formControlName="email" required>
                     <md-hint *ngIf="formErrors.email" align="end">{{ formErrors.email }}</md-hint>
                 </md-input>
             </td>
-            <td>
+            <td style="min-width:100px;">
                 <md-checkbox formControlName="emailOnAd" style="font-size:12px;">Show on Ads</md-checkbox>
             </td>
         </tr>
@@ -27,13 +27,13 @@
     <div>
     <table style="border-collapse: collapse; width: 100%;">
         <tr>
-            <td>
+            <td style="width:100%;">
                 <md-input placeholder="Telephone" maxlength="15" type="tel" style="width:100%;" formControlName="telephone" required>
                     <md-hint *ngIf="formErrors.telephone" align="end">{{ formErrors.telephone }}</md-hint>
                 </md-input>    
             </td>
-            <td>
-                <md-checkbox formControlName="telephoneOnAd" style="font-size:12px;">Show on Ads</md-checkbox>
+            <td style="min-width:100px;">
+                <md-checkbox formControlName="telephoneOnAd" style="font-size:12px; float:right;">Show on Ads</md-checkbox>
             </td>
         </tr>
     </table>
