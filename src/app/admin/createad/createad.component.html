@@ -1,5 +1,5 @@
 <h1>Create new Ad</h1>
-<form [formGroup]="formCreateAd"  *ngIf="formActive"  (ngSubmit)="onSubmit()">
+<form [formGroup]="formCreateAd"  *ngIf="formActive && validUserFlag"  (ngSubmit)="onSubmit()">
   <md-tab-group [selectedIndex]="formTabSelectedIndex">
     <md-tab label="Console">
     <md-card>
@@ -112,3 +112,6 @@
     </md-tab>
   </md-tab-group>
 </form>
+<md-card *ngIf="!validUserFlag">
+    <md-card-title style="text-align: middle;">Please complete your account information before create new Ads!</md-card-title>
+</md-card>

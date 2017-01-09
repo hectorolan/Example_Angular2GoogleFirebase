@@ -16,6 +16,7 @@ import { IgdbService, Game } from '../../services/igdb.service';
   styleUrls: ['./createad.component.css']
 })
 export class CreateAdComponent implements OnInit {
+  validUserFlag: boolean = true;
   sections = Section.Sections;
   consoles = Console.Consoles;
   prices;
@@ -60,7 +61,22 @@ export class CreateAdComponent implements OnInit {
     private igdbService: IgdbService) { }
 
   ngOnInit() {
+    if (!this.validUser()) {
+      this.validUserFlag = false;
+      return false;
+    }
     this.buildForm();
+  }
+
+  validUser(): boolean {
+    console.log(this.authService.user.city);
+    if (this.authService.user.city === '') {
+      return false;
+    }
+    if (this.authService.user.telephone === '') {
+      return false;
+    }
+    return true;
   }
 
   buildForm(): void {
