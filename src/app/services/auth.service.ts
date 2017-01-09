@@ -114,6 +114,7 @@ export class AuthService {
                 this.user.name = result.user.displayName;
                 this.user.avatarURL = result.user.photoURL;
                 this.user.id = result.user.uid;
+                this.user.emailOnAd = true;
                 return this.userService.saveUser(this.user);
               }
           });
