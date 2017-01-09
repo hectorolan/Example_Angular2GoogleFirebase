@@ -18,8 +18,8 @@
   <md-sidenav mode="{{ navMode }}" opened="{{ initOpened }}" #navpanel id="navpanel" style="padding-top:64px;">
     <md-nav-list style="width:200px;">
       <a *ngIf="!authService.isLoggedIn" md-list-item routerLink="/login" routerLinkActive="active">Log in</a>
+      <a *ngIf="authService.isLoggedIn" md-list-item routerLink="/admin" routerLinkActive="active" (click)="onMenuSelected();">{{ authService.user.name == '' ? 'Account' : 'Account' }}</a>
       <a *ngFor="let console of keys(consoles);" md-list-item routerLink="/games/{{console}}" routerLinkActive="active" (click)="onMenuSelected();">{{ consoles[console] }}</a>
-      <a *ngIf="authService.isLoggedIn" md-list-item routerLink="/admin" routerLinkActive="active" (click)="onMenuSelected();">{{ authService.user.name == '' ? 'Account' : authService.user.name }}</a>
       <a *ngIf="authService.isLoggedIn" md-list-item (click)="logout();onMenuSelected();">Log out</a>
     </md-nav-list>
   </md-sidenav>

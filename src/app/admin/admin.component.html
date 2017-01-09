@@ -1,10 +1,10 @@
 <md-sidenav-layout style="padding-top:64px;">
   <md-sidenav mode="{{ navMode }}" opened="{{ initOpened }}" #navpanel style="padding-top:64px;">
     <md-nav-list style="width:200px;">
+      <a md-list-item routerLink="/admin" routerLinkActive="active" (click)="onMenuSelected();">{{ authService.user.name == '' ? 'Account' : 'Account' }}</a>
       <a md-list-item routerLink="/games" routerLinkActive="active" (click)="onMenuSelected();">Clasificados</a>
       <a md-list-item routerLink="myads" routerLinkActive="active" (click)="onMenuSelected();">My Ads</a>
       <a md-list-item routerLink="createad" routerLinkActive="active" (click)="onMenuSelected();">Create new Ad</a>
-      <a md-list-item routerLink="/admin" routerLinkActive="active" (click)="onMenuSelected();">{{ authService.user.name == '' ? 'Account' : authService.user.name }}</a>
       <a md-list-item  (click)="logout();">Logout</a>
     </md-nav-list>
   </md-sidenav>
