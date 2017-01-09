@@ -1,34 +1,50 @@
 <form [formGroup]="accountForm"  *ngIf="active && user"  (ngSubmit)="onSubmit()">
   <md-card-content>
     <div>
-    <md-input placeholder="Name" maxlength="50" style="width:275px;" formControlName="name" required>
+    <md-input placeholder="Name" maxlength="50" style="width:100%;" formControlName="name" required>
         <md-hint *ngIf="formErrors.name" align="end">{{ formErrors.name }}</md-hint>
     </md-input>
     </div>
     <div>
-    <md-input placeholder="Email" maxlength="50" type="email" style="width:275px;" formControlName="email" required>
-        <md-hint *ngIf="formErrors.email" align="end">{{ formErrors.email }}</md-hint>
-    </md-input>
-    <md-checkbox formControlName="emailOnAd">Show email on new Ads</md-checkbox>
+    <table style="border-collapse: collapse; width: 100%;">
+        <tr>
+            <td >
+                <md-input placeholder="Email" maxlength="50" type="email" style="width:100%;" formControlName="email" required>
+                    <md-hint *ngIf="formErrors.email" align="end">{{ formErrors.email }}</md-hint>
+                </md-input>
+            </td>
+            <td>
+                <md-checkbox formControlName="emailOnAd" style="font-size:12px;">Show on Ads</md-checkbox>
+            </td>
+        </tr>
+    </table>
     </div>
     <div *ngIf="password !== 'hide'">
-    <md-input placeholder="Password" type="password" maxlength="10" style="width:275px;" formControlName="password" required>
+    <md-input placeholder="Password" type="password" maxlength="10" style="width:100%;" formControlName="password" required>
         <md-hint *ngIf="formErrors.password" align="end">{{ formErrors.password }}</md-hint>
     </md-input>
     </div>
     <div>
-    <md-input placeholder="Telephone" maxlength="15" type="tel" style="width:275px;" formControlName="telephone" required>
-        <md-hint *ngIf="formErrors.telephone" align="end">{{ formErrors.telephone }}</md-hint>
-    </md-input>
-    <md-checkbox formControlName="telephoneOnAd">Show telephone on new Ads</md-checkbox>
+    <table style="border-collapse: collapse; width: 100%;">
+        <tr>
+            <td>
+                <md-input placeholder="Telephone" maxlength="15" type="tel" style="width:100%;" formControlName="telephone" required>
+                    <md-hint *ngIf="formErrors.telephone" align="end">{{ formErrors.telephone }}</md-hint>
+                </md-input>    
+            </td>
+            <td>
+                <md-checkbox formControlName="telephoneOnAd" style="font-size:12px;">Show on Ads</md-checkbox>
+            </td>
+        </tr>
+    </table>
     </div>
     <div>
-    <md-input placeholder="City" maxlength="50" style="width:275px;" formControlName="city" required>
+    <md-input placeholder="City" maxlength="50" style="width:100%;" formControlName="city" required>
         <md-hint *ngIf="formErrors.city" align="end">{{ formErrors.city }}</md-hint>
     </md-input>
     </div>
     <div>
-      <md-input disabled value="Prefered contact method:"></md-input><br>
+      <md-input disabled value="Contact me by:" style="width:100%;"></md-input><br>
       <md-checkbox formControlName="methodCall">Call</md-checkbox>
       <md-checkbox formControlName="methodTextMessage">Text Message</md-checkbox>
       <md-checkbox formControlName="methodEmail">Email</md-checkbox>
