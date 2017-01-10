@@ -16,6 +16,7 @@ export class AuthService {
   constructor(private router: Router, private firebaseService: FirebaseService, private userService: UserService, private ngzone: NgZone) {
     this.firebaseService.auth.onAuthStateChanged((user) => {
       if (user) {
+        console.log(user);
         if (!this.isLoggedIn) {
           // this.refreshFireBaseVariables()
           this.ngzone.run(() => this.refreshFireBaseVariables());
@@ -137,5 +138,23 @@ export class AuthService {
       }
       throw 'Not Autenticated User';
     });
+  }
+
+  isPasswordUser(): boolean {
+    if (this.firebaseService.auth.currentUser) {
+      if (this.firebaseService.auth.currentUser.providerData[0]) {
+        return this.firebaseService.auth.currentUser.providerData[0].providerId === 'password';
+      }
+    }
+    return false;
+  }
+
+  sendChangePasswordEmail(email: string): Promise<any> {
+    return Promise.resolve(this.firebaseService.auth.sendPasswordResetEmail(email).then(() => {
+      return true;
+    }, (error) => {
+      console.log(error);
+      return false;
+    }));
   }
 }
