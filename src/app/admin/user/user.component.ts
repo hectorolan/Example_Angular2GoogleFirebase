@@ -14,7 +14,7 @@ export class UserComponent implements OnInit {
 
   @ViewChild(AccountFormComponent)
   private accountFormComponent: AccountFormComponent;
-
+  showChangePasswordButton: boolean = false;
   user: User = new User();
 
   constructor(
@@ -25,6 +25,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.authService.user;
+    this.showChangePasswordButton = this.authService.isPasswordUser();
   }
 
   saveSubmit(data: {[key: string]: any}) {
@@ -36,6 +37,13 @@ export class UserComponent implements OnInit {
         setTimeout(() => { snackRef.dismiss(); }, 2000);
         this.accountFormComponent.buildForm();
       });
+    });
+  }
+
+  changePasswordEmail() {
+    this.authService.sendChangePasswordEmail(this.userService.getUserEmail()).then(() => {
+        let snackRef = this.snackBar.open('Change password email send.');
+        setTimeout(() => { snackRef.dismiss(); }, 2000);
     });
   }
 }

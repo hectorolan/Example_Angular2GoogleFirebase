@@ -5,7 +5,7 @@
     </md-card>
     <md-card>
         <md-card-actions>
-            <button type="button" md-button>Change Password</button>
+            <button *ngIf="showChangePasswordButton" type="button" md-button (click)="changePasswordEmail()">Send Change Password Email</button>
             <button type="button" md-button>Delete Account</button>
             <button type="button" md-button>Terms and Conditions</button>
         </md-card-actions>
