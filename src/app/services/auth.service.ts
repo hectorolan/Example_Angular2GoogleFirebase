@@ -16,7 +16,6 @@ export class AuthService {
   constructor(private router: Router, private firebaseService: FirebaseService, private userService: UserService, private ngzone: NgZone) {
     this.firebaseService.auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
         if (!this.isLoggedIn) {
           // this.refreshFireBaseVariables()
           this.ngzone.run(() => this.refreshFireBaseVariables());
