@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private togglenavService: TogglenavService) { }
+    private togglenavService: TogglenavService,
+    private snackBar: MdSnackBar) { }
 
   ngOnInit() {
     this.togglenavService.showNavToggleBtn = false;
@@ -99,6 +100,25 @@ export class LoginComponent implements OnInit {
 
   cancelLogin() {
     this.router.navigate(['/games']);
+  }
+
+  forgotPassword(emailCtrl: any) {
+    if (this.loginForm.controls['email'].value === '') {
+      this.formErrors.email = 'Required to reset password.';
+      emailCtrl.focus();
+      return false;
+    }
+    this.authService.sendChangePasswordEmail(this.loginForm.controls['email'].value).then((result) => {
+      let snackRef;
+      if (result) {
+        snackRef = this.snackBar.open('Change password email send.');
+        setTimeout(() => { snackRef.dismiss(); }, 2000);
+        emailCtrl.focus();
+        return;
+      }
+      this.formErrors.email = 'Invalid email.';
+      emailCtrl.focus();
+    });
   }
 
   onValueChanged(data?: any) {
