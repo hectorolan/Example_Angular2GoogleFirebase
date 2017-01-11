@@ -180,6 +180,7 @@ export class CreateAdComponent implements OnInit {
   setObjectToSave() {
     let user: User = this.authService.user;
     this.ad = this.formCreateAd.value;
+    this.ad.name = this.formCreateAd.controls['name'].value; // when field is disable, name does not transfer
     this.ad.owner = user.name;
     this.ad.ownerid = user.id;
     this.ad.email = user.emailOnAd === true ? this.userService.getUserEmail() : '';
