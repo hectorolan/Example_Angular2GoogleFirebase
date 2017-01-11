@@ -44,6 +44,16 @@ export class UserService {
       }));
   }
 
+  deleteUser(user: User) {
+    let updates = {
+      ['users/' + user.id]: null
+    };
+    return Promise.resolve(this.firebaseService.database.ref().update(updates))
+    .then(() => {
+      return this.firebaseService.auth.currentUser.delete();
+    });
+  }
+
   sendEmailVerification(): Promise<any> {
     if (this.firebaseService.auth.currentUser) {
       return Promise.resolve(this.firebaseService.auth.currentUser.sendEmailVerification().then(() => {
