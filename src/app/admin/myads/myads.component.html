@@ -1,4 +1,8 @@
-<h2>
-  My Ads ({{counter}}) 
-</h2>
+<md-card>
+  <md-card-title>
+    My Ads <span *ngIf="counter">({{counter}})</span>
+  </md-card-title>
+  <md-card-content>
 <app-adlist [ads]="ads"></app-adlist>
+  </md-card-content>
+</md-card>
