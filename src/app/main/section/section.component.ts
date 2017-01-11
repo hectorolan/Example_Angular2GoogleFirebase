@@ -14,6 +14,7 @@ export class SectionComponent implements OnInit {
 
   title: string = '';
   counter: string = '';
+  sectionsCounter: { [key: string]: string; } = {};
   console: string = '';
   sections = Section.Sections;
   ads: Ad[];
@@ -35,8 +36,15 @@ export class SectionComponent implements OnInit {
       this.adService.getAds(this.console).then((ads) => {
         this.ads = ads;
         this.counter = this.ads.length + '';
+        this.keys(this.sections).forEach(element => {
+          this.sectionsCounter[element] = this.getCountFiteringSection(element);
+        });
       });
    });
+  }
+
+  getCountFiteringSection(section: string): string {
+    return this.ads.filter(ad => ad.section === section).length + '';
   }
 
   keys(dictionary): Array<string> {

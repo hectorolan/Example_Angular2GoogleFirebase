@@ -1,7 +1,13 @@
-<h2>
-  {{title}} ({{counter}})
-</h2>
-<div *ngFor="let section of keys(sections);" style="margin: 10px; display:inline;">
-  <button md-button routerLink="/games/{{console}}/{{section}}" routerLinkActive="active">{{sections[section]}}</button>
-</div>
-<app-adlist [ads]="ads"></app-adlist>
+<md-card> 
+  <md-card-title>
+    {{title}} <span *ngIf="counter">({{counter}})</span>
+  </md-card-title>
+  <md-card-content>
+    <div *ngFor="let section of keys(sections);" style="display:inline-block; margin:10px;">
+      <span routerLink="/games/{{console}}/{{section}}" routerLinkActive="active">{{sections[section]}}
+      <span *ngIf="sectionsCounter[section] && sectionsCounter[section] !== '0'">({{sectionsCounter[section]}})</span>
+      </span>
+    </div>
+    <app-adlist [ads]="ads"></app-adlist>
+  </md-card-content>
+</md-card>
