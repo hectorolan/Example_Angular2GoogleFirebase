@@ -1,0 +1,18 @@
+<h1 md-dialog-title>
+  Confirm
+</h1>
+<md-dialog-content *ngIf="message">
+  {{ message }}
+  <form  [formGroup]="dialogForm">
+    <div *ngIf="askForPassword" style="margin-top:12px; margin-bottom:12px;">
+      <md-input placeholder="password" type="password" style="width:100%;" formControlName="password" required>
+        <md-hint *ngIf="formErrors.password" align="end">{{ formErrors.password }}</md-hint>
+      </md-input>
+    </div>
+  </form>
+</md-dialog-content>
+<md-dialog-actions>
+  <button *ngIf="askForPassword" [disabled]="!dialogForm.valid" (click)="closeSubmit(true);" md-raised-button style="margin-bottom:8px;">Yes</button>
+  <button *ngIf="!askForPassword" (click)="closeSubmit(true);" md-raised-button style="margin-bottom:8px;">Yes</button>
+  <button (click)="closeSubmit(false);" md-raised-button md-dialog-close>Cancel</button>
+</md-dialog-actions>

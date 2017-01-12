@@ -15,6 +15,7 @@ import { MdRadioModule } from '@angular/material/radio';
 import { MdSnackBarModule } from '@angular/material/snack-bar';
 import { MdDialogModule } from '@angular/material/dialog';
 import { AdlistComponent } from '../components/adlist/adlist.component';
+import { YesCancelDialogComponent } from '../dialogs/yes-cancel-dialog/yes-cancel-dialog.component';
 import { AdlistRoutingModule } from '../components/adlist/adlist-routing.module';
 import { AccountFormComponent } from '../components/account-form/account-form.component';
 import { AccountFormRoutingModule } from '../components/account-form/account-form-routing.module';
@@ -42,7 +43,11 @@ import { AccountFormRoutingModule } from '../components/account-form/account-for
   ],
   declarations: [
     AdlistComponent,
-    AccountFormComponent
+    AccountFormComponent,
+    YesCancelDialogComponent
+  ],
+  entryComponents: [
+    YesCancelDialogComponent
   ],
   exports: [
     FormsModule,
@@ -62,7 +67,8 @@ import { AccountFormRoutingModule } from '../components/account-form/account-for
     MdSnackBarModule,
     MdDialogModule,
     AdlistComponent,
-    AccountFormComponent
+    AccountFormComponent,
+    YesCancelDialogComponent
   ]
 })
 export class GCSharedModule { }
