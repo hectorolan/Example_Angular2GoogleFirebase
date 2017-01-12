@@ -50,7 +50,15 @@ export class UserService {
     };
     return Promise.resolve(this.firebaseService.database.ref().update(updates))
     .then(() => {
-      return this.firebaseService.auth.currentUser.delete();
+      return this.firebaseService.auth.currentUser.delete().then(() => {
+        // User deleted.
+      }, (error) => {
+        console.log(error);
+        let updates = {
+          ['users/' + user.id]: user
+        };
+        return Promise.resolve(this.firebaseService.database.ref().update(updates));
+      });
     });
   }
 
