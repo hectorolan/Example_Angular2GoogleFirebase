@@ -17,7 +17,6 @@ export class AuthService {
     this.firebaseService.auth.onAuthStateChanged((user) => {
       if (user) {
         if (!this.isLoggedIn) {
-          // this.refreshFireBaseVariables()
           this.ngzone.run(() => this.refreshFireBaseVariables());
         }
       } else {
@@ -103,7 +102,7 @@ export class AuthService {
   getFirebaseRedirectResult(): Promise<any> {
     return Promise.resolve(
       this.firebaseService.auth.getRedirectResult().then((result) => {
-        if (result) {
+        if (result && result.user) {
           return this.userService.getUser(result.user.uid).then((user) => {
               this.isLoggedIn = true;
               if (user) {
