@@ -88,7 +88,7 @@ export class UserComponent implements OnInit {
         .then((userAds) => {
           ads = userAds;
           ads.forEach(element => {
-            this.adService.deleteAd(element.id, this.authService.user);
+            this.adService.deleteAd(element, this.authService.user);
           });
         })
         .then(() => {

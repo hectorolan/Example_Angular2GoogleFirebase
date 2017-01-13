@@ -36,19 +36,17 @@ export class AdlistComponent implements OnInit {
     this.dialogRef = this.dialog.open(YesCancelDialogComponent, {
       disableClose: false
     });
-    this.dialogRef.componentInstance.message = "Are you sure you want to delete your ad?";
+    this.dialogRef.componentInstance.message = 'Are you sure you want to delete your ad?';
     this.dialogRef.afterClosed().subscribe(result => {
       this.dialogRef = null;
-      if (result['response'] == true) {
-        this.adService.deleteAd(ad.id, this.authService.user).then(() => {
+      if (result['response'] === true) {
+        this.adService.deleteAd(ad, this.authService.user).then(() => {
           let snackRef = this.snackBar.open('Ad deleted');
           setTimeout(() => { snackRef.dismiss(); }, 2000);
           location.reload();
         });
       }
     });
-
-    
   }
 
   getImageSrc(imageKey: string): string {

@@ -91,10 +91,11 @@ export class AdService {
     return Promise.resolve(this.firebaseService.database.ref().update(updates));
   }
 
-  deleteAd(adKey: string, user: User) {
+  deleteAd(ad: Ad, user: User) {
+    ad.deleted = true;
     let updates = {
-      ['/ads/' + adKey]: null,
-      ['/user-ads/' + user.id + '/' + adKey]: null
+      ['/ads/' + ad.id]: null,
+      ['/user-ads/' + user.id + '/' + ad.id]: ad
     };
     return Promise.resolve(this.firebaseService.database.ref().update(updates));
   }
