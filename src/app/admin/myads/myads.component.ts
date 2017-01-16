@@ -22,7 +22,12 @@ export class MyAdsComponent implements OnInit {
 
   ngOnInit() {
     this.adService.getUserAds(this.authService.user).then((ads) => {
-      this.ads = ads;
+      this.ads = ads.sort((ad1, ad2) => {
+        if (ad1.deleted === ad2.deleted) {
+          return 0;
+        }
+        return ad1.deleted === true ? 1 : -1;
+      });
       this.counter = this.ads.length + '';
     });
   }
