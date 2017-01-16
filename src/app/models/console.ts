@@ -8,8 +8,7 @@ export class Console {
     'X360': 'Xbox 360',
     'WiiU': 'Wii U',
     'Wii': 'Wii',
-    'N3DS': 'Nintendo 3DS',
-    'N2DS': 'Nintendo 2DS',
+    'N3DS2DS': 'Nintendo 3DS/2DS',
     'Other': 'Other'
     };
 }
