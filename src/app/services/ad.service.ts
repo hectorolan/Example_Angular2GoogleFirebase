@@ -25,6 +25,7 @@ export class AdService {
       return Promise.resolve([]);
     }
     return Promise.resolve(this.getAdsByConsole(console).then((ads) => {
+      ads = this.manageExpiredAds(ads, null);
       if (section !== '') {
         return this.getAdsBySection(section, ads);
       }
@@ -46,8 +47,22 @@ export class AdService {
     );
   }
 
-  getAdsBySection(section: string, ads: Ad[]): Ad[] {
+  private getAdsBySection(section: string, ads: Ad[]): Ad[] {
     return ads.filter(ad => ad.section === section);
+  }
+
+  private manageExpiredAds(ads: Ad[], user: User): Ad[] {
+      let expiredAds = ads.filter(ad => ad.expDate.getTime() < (new Date()).getTime());
+      if (expiredAds.length > 0) {
+        expiredAds.forEach(element => {
+          let index = ads.indexOf(element);
+          if (index > -1) {
+            ads.slice(index, 1);
+            this.deleteAd(element, user);
+          }
+        });
+      }
+      return ads;
   }
 
   getUserAds(user: User): Promise<Ad[]> {
@@ -59,6 +74,7 @@ export class AdService {
           ad.id = childSnapshot.key;
           ads.push(ad);
         });
+        ads = this.manageExpiredAds(ads, user);
         return ads;
       })
     );
@@ -93,12 +109,12 @@ export class AdService {
 
   deleteAd(ad: Ad, user: User) {
     let updates;
-    ad.deleted = true;
     if (user === null) {
       updates = {
         ['/ads/' + ad.id]: null,
       };
     } else {
+      ad.deleted = true;
       updates = {
         ['/ads/' + ad.id]: null,
         ['/user-ads/' + user.id + '/' + ad.id]: ad
