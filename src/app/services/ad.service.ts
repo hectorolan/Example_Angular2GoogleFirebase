@@ -50,7 +50,7 @@ export class AdService {
     return ads.filter(ad => ad.section === section);
   }
 
-  getUserAds(user: User): Promise<Ad[]>{
+  getUserAds(user: User): Promise<Ad[]> {
     return Promise.resolve(
       this.firebaseService.database.ref('/user-ads/' + user.id + '/').once('value').then((snapshot) => {
         let ads: Ad[] = [];
@@ -92,11 +92,18 @@ export class AdService {
   }
 
   deleteAd(ad: Ad, user: User) {
+    let updates;
     ad.deleted = true;
-    let updates = {
-      ['/ads/' + ad.id]: null,
-      ['/user-ads/' + user.id + '/' + ad.id]: ad
-    };
+    if (user === null) {
+      updates = {
+        ['/ads/' + ad.id]: null,
+      };
+    } else {
+      updates = {
+        ['/ads/' + ad.id]: null,
+        ['/user-ads/' + user.id + '/' + ad.id]: ad
+      };
+    }
     return Promise.resolve(this.firebaseService.database.ref().update(updates));
   }
 
