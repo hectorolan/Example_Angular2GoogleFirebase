@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class MyAdsComponent implements OnInit {
 
-  ads: Ad[] = [];
+  ads: Ad[];
   counter: string = '';
 
   constructor(

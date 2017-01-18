@@ -82,7 +82,7 @@ export class Ad {
     section: string;
     itemIdentification: string;
     imageKey: string;
-    expDate: Date;
+    expDateMilliseconds: number;
     deleted: boolean = false;
 
     constructor(id = '',

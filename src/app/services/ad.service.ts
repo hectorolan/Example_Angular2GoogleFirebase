@@ -52,7 +52,7 @@ export class AdService {
   }
 
   private manageExpiredAds(ads: Ad[], user: User): Ad[] {
-      let expiredAds = ads.filter(ad => ad.expDate.getTime() < (new Date()).getTime());
+      let expiredAds = ads.filter(ad => ad.expDateMilliseconds < new Date().getTime());
       if (expiredAds.length > 0) {
         expiredAds.forEach(element => {
           let index = ads.indexOf(element);

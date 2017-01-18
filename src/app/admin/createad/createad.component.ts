@@ -69,7 +69,6 @@ export class CreateAdComponent implements OnInit {
   }
 
   validUser(): boolean {
-    console.log(this.authService.user.city);
     if (this.authService.user.city === '') {
       return false;
     }
@@ -186,8 +185,9 @@ export class CreateAdComponent implements OnInit {
     this.ad.email = user.emailOnAd === true ? this.userService.getUserEmail() : '';
     this.ad.city = user.city;
     this.ad.telephone = user.telephoneOnAd === true ? user.telephone : '';
-    this.ad.expDate = new Date();
-    this.ad.expDate.setDate(this.ad.expDate.getDate() + 21);
+    let expdate = new Date();
+    expdate.setDate(expdate.getDate() + 21);
+    this.ad.expDateMilliseconds = expdate.getTime();
     let contactMethod = '';
     contactMethod += user.methodCall ? 'Call;' : '';
     contactMethod += user.methodTextMessage ? 'Text;' : '';
